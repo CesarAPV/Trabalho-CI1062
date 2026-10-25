@@ -2,8 +2,18 @@ public abstract class Sector{
     protected int x;
     protected int y;
     protected boolean passed;
-    protected boolean doors[4]; // 0 - Norte, 1 - Leste, 2 - Sul, 3 - Oeste
+    protected boolean doors[4]; 
+    // 0 - Norte, 1 - Leste, 2 - Sul, 3 - Oeste
     // Faço uma coleção? no caso uma lista? 
+    
+    /*
+    Acha melhor manter o Sector em vez de uma classe Coordenada?	
+    Na minha cabeça, como tabuleiro precisa de coordenada, os 
+    personagem (jogadores e inimigos), vão precisar, achei 
+    interessante de fazer um atributo tipo classe Coordenada...
+    ATT:. Gustavo
+    */
+    
     protected Enemy enemys[];
 
     public Sector(int x, int y) {
@@ -11,7 +21,7 @@ public abstract class Sector{
         this.y = y; 
     }
 
-    // Metodo que atacca o inimigo escolhido no setor, continuar depois
+    // Metodo que ataca o inimigo escolhido no setor, continuar depois
     public Enemy atackEnemy(){
 
     }

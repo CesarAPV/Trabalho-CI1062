@@ -3,7 +3,7 @@ public class HiddenSector extends Sector {
         super(x, y);
     }
 
-    // Lógica diferenciual do seror escondido na hora do ataque 
+    // Lógica diferencial do setor escondido na hora do ataque 
     public Enemy atackEnemy(){
 
     }
