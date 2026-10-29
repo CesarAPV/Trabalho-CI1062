@@ -14,10 +14,10 @@ public abstract class Sector{
     }
 
     // Metodo que ataca o inimigo escolhido no setor
-    public int atackEnemy(int id ){
+    public int atackEnemy(int id, int damage){
         // Ataca o inimigo de alguma forma;
 
-        return 0;
+        return damage;
     }
 
     // Metodo que procura "itens" no setor
