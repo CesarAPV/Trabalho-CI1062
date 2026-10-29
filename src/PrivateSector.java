@@ -4,7 +4,8 @@ public class PrivateSector extends Sector {
     }
 
     // Lógica diferencial do privado para a procura de itens 
+    @Override
     public int search(){
-
+        return 0;
     }
 }
