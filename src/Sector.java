@@ -1,23 +1,43 @@
+import java.util.Random;
+
 public abstract class Sector{
     protected int x;
     protected int y;
     protected boolean passed;
     protected Door[] doors = new Door[4]; 
     
-    //protected Enemy enemys[];
+    protected Enemy enemys[];
 
     public Sector(int x, int y) {
-        this.x = x;
+        this.x = x;    
         this.y = y; 
     }
 
-    // Metodo que ataca o inimigo escolhido no setor, continuar depois
-    // public Enemy atackEnemy(){
+    // Metodo que ataca o inimigo escolhido no setor
+    public int atackEnemy(int id ){
+        // Ataca o inimigo de alguma forma;
 
-    // }
+        return 0;
+    }
 
-    // Metodo que procura "itens" no setor, continuar depois
+    // Metodo que procura "itens" no setor
     public int search(){
+        Random random = new Random();
+        int  num =  random.nextInt(6)+1;
+
+        switch (num) {
+            case 4:
+                // Faz ganhar 1 def
+                return 1;
+            case 5:
+                // Faz ganhar 2 def
+                return 2; 
+            case 6:
+                // Faz
+                break;
+            default:
+                return 0;
+        }
         return 0;
     }
 
