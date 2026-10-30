@@ -1,12 +1,13 @@
+package character;
+
 public class JogadorSuporte extends Jogador {
-   // Construtor
+   /***************Construtor*******************/
    public JogadorSuporte() {
       super(1, 7);
    }
    
-   // Habilidade Especial
+   /***************Habilidade Especial*******************/
    public void recuperaDef(Jogador j) {
-      int defesaAtual = j.getDef();
-      j.setDef(defesaAtual + 2);
+      j.setDef(j.getDef() + 2);
    }
 }

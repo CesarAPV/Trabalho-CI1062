@@ -1,5 +1,7 @@
+package character;
+
 public class JogadorSimples extends Jogador {
-   // Construtor
+   /***************Construtor*******************/
    public JogadorSimples() {
        super(2,6);
    }
