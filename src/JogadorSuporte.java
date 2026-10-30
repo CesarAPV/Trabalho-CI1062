@@ -1,8 +1,12 @@
-public class JogadorSuporte extends Jogador{
-	// Atributos
-	
-	// actionAplicarHabilidade
-	// actionHabilidadeCura
-	// possíveis nomes para o método abaixo
-	public void actionRecuperarDefesa(){}
+public class JogadorSuporte extends Jogador {
+   // Construtor
+   public JogadorSuporte() {
+      super(1, 7);
+   }
+   
+   // Habilidade Especial
+   public void recuperaDef(Jogador j) {
+      int defesaAtual = j.getDef();
+      j.setDef(defesaAtual + 2);
+   }
 }

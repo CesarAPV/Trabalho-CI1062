@@ -1,2 +1,6 @@
-public class JogadorSimples extends Jogador {}
-// É a própria classe jogador;
+public class JogadorSimples extends Jogador {
+   // Construtor
+   public JogadorSimples() {
+       super(2,6);
+   }
+}
