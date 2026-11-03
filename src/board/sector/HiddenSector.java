@@ -1,3 +1,5 @@
+package board.sector;
+
 import java.util.Random;
 
 public class HiddenSector extends Sector { 

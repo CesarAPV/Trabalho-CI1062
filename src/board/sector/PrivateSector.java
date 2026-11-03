@@ -1,3 +1,5 @@
+package board.sector;
+
 public class PrivateSector extends Sector { 
     public PrivateSector(int x, int y) {
         super(x, y);
