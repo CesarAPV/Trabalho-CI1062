@@ -1,3 +1,5 @@
+package board.sector;
+
 import java.util.Random;
 
 public abstract class Sector{
@@ -5,8 +7,7 @@ public abstract class Sector{
     protected int y;
     protected boolean passed;
     protected Door[] doors = new Door[4]; 
-    
-    protected Enemy enemys[];
+    protected Inimigo enemys[];
 
     public Sector(int x, int y) {
         this.x = x;    
@@ -14,10 +15,8 @@ public abstract class Sector{
     }
 
     // Metodo que ataca o inimigo escolhido no setor
-    public int atackEnemy(int id, int damage){
-        // Ataca o inimigo de alguma forma;
-
-        return damage;
+    public void atackEnemy(int id, int damage){
+        enemys[id].takeDmg(damage);
     }
 
     // Metodo que procura "itens" no setor
@@ -33,12 +32,15 @@ public abstract class Sector{
                 // Faz ganhar 2 def
                 return 2; 
             case 6:
-                // Faz
-                break;
+                for (int i = 0; i < this.enemys.length; i++) {
+                    if(this.enemys[i] != null){
+                        enemys[i].takeDmg(1);
+                    }
+                }
+                return 0;
             default:
                 return 0;
         }
-        return 0;
     }
 
     public int getX() {
@@ -58,26 +60,27 @@ public abstract class Sector{
     }
 
     // Ver como printar os playes
-    public void printSector(){
-
-        System.out.println("|------"+ (this.doors[0].isOpen()? "*" : "-") +"------|");
+    @Override
+    public String toString(){
+        String sector = "";
+        sector += "|------"+ (this.doors[Direction.UP.ordinal()].isOpen()? "*" : "-") +"------|\n";
         
-        System.out.print("| ");
+        sector += "| ";
         for(int i = 0; i <= numero inimigos; i++)
-            System.out.print(this.enemys[i].toString()+" ");
-        
+            sector += this.enemys[i].toString()+" ";
         for (int i = enemy.length; i < 4; i++)
-            System.out.print("    ");
-        System.out.println("|");
+            sector += "    ";
+        sector += "|";
 
-        System.out.println("|             |");
+        sector += "|             |\n";
 
-        System.out.println((this.doors[3].isOpen()? "*" : "|") + "             " + (this.doors[1].isOpen()? "*" : "|"));
+        sector += (this.doors[3].isOpen()? "*" : "|") + "             " + (this.doors[1].isOpen()? "*" : "|") + "\n";
 
         // Provisório, depois ver como printar os players
-        System.out.println("|  P1    P2   |");
-        System.out.println("|  2/6   1/7  |");
+        sector += "|  P1    P2   |\n";
+        sector += "|  2/6   1/7  |\n";
         
+        return sector;
     }
 
     // Provavelmete será necessário mudar ficou meio gambiara 
