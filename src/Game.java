@@ -43,11 +43,26 @@ public class Game{
             }
         }
     }
+   
+    private void runInimigo (Jogador player){
+        Posicao pos = player.getPos();
+        Sector setor = board.getSetor(pos.getX(),pos.getY());
+
+        for (Inimigo setor.inimigos : inimigos) {
+            inimigo.atacar(player);
+        }
+    }
 
     public int runRound (){
         for (Jogador player : jogadores) {
             runPlayer(player);
+            runPlayer(player);
         }
+
+        for (Jogador player : jogadores) {
+            runInimigo(player);
+        }
+        
         return 0;
     }
 }
