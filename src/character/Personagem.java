@@ -1,53 +1,44 @@
 package character;
 
-import utils.Coordenada;
+import utils.Posicao;
 
-public abstract class Personagem {
+public abstract class Personagem implements Atacante {
    /***************Atributos*******************/
    protected int atk, def;
-   protected Coordenada pos;
+   protected Posicao pos;
 
    /***************Construtor*******************/
    public Personagem(int atk, int def, int x, int y) {
       this.atk = atk;
       this.def = def;
-      this.pos = new Coordenada(x, y);
+      this.pos = new Posicao(x, y);
    }
 
    /***************Getters*******************/
    public int getAtk() { return this.atk; }
    public int getDef() { return this.def; }
-   public Coordenada getPos() { return this.pos; }
+   public Posicao getPos() { return this.pos; }
 
    /***************Setters*******************/
-   public void setAtk(int atk) {
-      if (atk >= 1)
-         this.atk = atk;
+   public void setPos(Posicao pos) {
+      this.pos = pos;
    }
-
    public void setDef(int def) {
-      if (def >= 0)
-         this.def = def;
-   }
-
-   public void setPos(int x, int y) {
-      pos.atualizaCordenada(x,y);
+      this.def = def;
    }
 
    /***************Metodos*******************/
-   public boolean isAlive() { 
+   public boolean estaVivo() { 
       if(def <= 0)
          return false;
       return true;
    }
 
-   public void takeDmg(int dmg) {
+   public void receberDano(int dmg) {
       def -= dmg;
       if(def < 0)
          def = 0;
    }
-
-   public void attack(Personagem alvo) {
-      alvo.takeDmg(atk);
-   }
+   
+   public abstract void atacar(Personagem alvo);
 }

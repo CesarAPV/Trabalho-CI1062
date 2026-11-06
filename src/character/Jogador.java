@@ -1,28 +1,42 @@
 package character;
 
-import java.util.Random;
+import board.sector.Sector;
+import utils.Dado;
 
-public abstract class Jogador extends Personagem {
+public abstract class Jogador extends Personagem implements Explorador {
    /***************Construtor*******************/
    public Jogador(int atk, int def) {
-       super(atk, def, 3, 3);
+      super(atk, def, 3, 3);
    }
    
    /***************Metodos*******************/   
-   public void move(int x, int y) {
-      this.setPos(x, y);
+   public void movimentar(Sector destino) {
+      /* 
+      Basta verificar duas coisas:
+      - Se o setor destino está imediatamente ao redor 
+      - Se tiver, tem uma porta nesse caminho para poder atravessar?
+      Caso sim em ambos, apenas dar um setPos(new Position(destino.getPos()))
+      */
    }
-    
-   public void procurar() {
-      Random random = new Random();
-      int aleat = random.nextInt(6) + 1;
-      
-      if(aleat <= 3) 
+
+   public void procurar(Sector destino) {
+      int dado = Dado.rolarDado();
+
+      if(dado <= 3)
          return;
-      else if(aleat == 4) 
+      else if(dado == 4)
          setDef(def + 1);
-      else if(aleat == 5)
+      else if(dado == 5)
          setDef(def + 2);
-      // else causa dano em todos os inimigos
+      else {
+         for (Inimigo inimigo : destino.getInimigos()) {
+            atacar(inimigo);
+         }
+      }
+   }
+
+   @Override 
+   public void atacar(Personagem alvo) {
+      alvo.receberDano(atk);
    }
 }

@@ -1,23 +1,26 @@
 package board.sector;
 
-import java.util.Random;
+
+import character.Inimigo;
+import character.Jogador;
+import utils.Posicao;
+import utils.Dado;
 
 public class HiddenSector extends Sector { 
-    public HiddenSector(int x, int y) {
-        super(x, y);
+    public HiddenSector(Posicao pos, boolean n, boolean s, boolean l, boolean o){
+        super(pos, n, s, l, o);
     }
 
-    // Lógica diferencial do setor escondido na hora do ataque 
-    public int atackEnemy(int id, int damage){
-        Random random = new Random();
-        int  num =  random.nextInt(2);
+    @Override 
+    public void processarAtaque(Jogador atacante, Inimigo alvo){
+        boolean podeAtacar = Dado.moeda();
+        if(podeAtacar) {
+            atacante.atacar(alvo);
+        }
+    }
 
-        if(num == 1){
-            // logica de atacar 
-            return damage;
-        }   
-
-        // "errou"
-        return 0;
+    @Override 
+    public boolean podeProcurar() {
+        return true;
     }
 }

@@ -1,65 +1,83 @@
 package board.sector;
 
-import java.util.Random;
+import java.util.ArrayList;
+
+import utils.Dado;
+import utils.Posicao;
+import board.Direction;
+
+import character.Inimigo;
+import character.Jogador;
 
 public abstract class Sector{
-    protected int x;
-    protected int y;
-    protected boolean passed;
-    protected Door[] doors = new Door[4]; 
-    protected Inimigo enemys[];
+    // Mapa, visivel apenas para a propria classe
 
-    public Sector(int x, int y) {
-        this.x = x;    
-        this.y = y; 
+    // Atributos
+    protected Posicao pos;
+    protected boolean visitado;
+    protected boolean infectado;
+    protected Boolean[] portas = new Boolean[4]; 
+    protected ArrayList<Inimigo> inimigos;
+
+    // Construtor
+    public Sector(Posicao pos, boolean n, boolean s, boolean l, boolean o) {
+        this.pos = pos;
+        visitado = false;
+        infectado = false;
+        inimigos = new ArrayList<Inimigo>();
+        portas[Direction.UP.ordinal()]    = n; // top door
+        portas[Direction.RIGHT.ordinal()] = l; // right door
+        portas[Direction.DOWN.ordinal()]  = s; // down door
+        portas[Direction.LEFT.ordinal()]  = o; // left door
     }
 
-    // Metodo que ataca o inimigo escolhido no setor
-    public void atackEnemy(int id, int damage){
-        enemys[id].takeDmg(damage);
+    // Metodos get
+    public boolean isVisitado() { return visitado; }
+    public Posicao getPos() { return pos; }
+    public Boolean[] getPortas() { return portas; }
+    public Inimigo[] getInimigos() {
+        Inimigo[] inim = new Inimigo[inimigos.size()];
+        return inimigos.toArray(inim);
     }
 
-    // Metodo que procura "itens" no setor
-    public int search(){
-        Random random = new Random();
-        int  num =  random.nextInt(6)+1;
+    // Metodos set
+    public void setVisitado(boolean visited) {
+        this.visitado = visited;
+    }
 
-        switch (num) {
-            case 4:
-                // Faz ganhar 1 def
-                return 1;
-            case 5:
-                // Faz ganhar 2 def
-                return 2; 
-            case 6:
-                for (int i = 0; i < this.enemys.length; i++) {
-                    if(this.enemys[i] != null){
-                        enemys[i].takeDmg(1);
-                    }
-                }
-                return 0;
-            default:
-                return 0;
+    public void Infectar() {
+        this.infectado = true;
+    }
+
+    // Outros metodos
+    /// Metodos referentes a inimigos
+    protected void gerarInimigos() {
+        int numInimigos = Dado.rolarIntervalo(1, 3);
+        for(int i = 0; i < numInimigos; i++) {
+            inimigos.add(new Inimigo(pos));
         }
     }
 
-    public int getX() {
-        return this.x;
-    }
-    
-    public int getY() {
-        return this.y;
+    public boolean temInimigosVivos() {
+        removerInimigosMortos();
+        if(inimigos.size() == 0)
+            return false;
+        return true;
+    } 
+
+    private void removerInimigosMortos() {
+        for (Inimigo inimigo : inimigos) {
+            if(!inimigo.estaVivo()) {
+                inimigos.remove(inimigo);
+            }
+        }
     }
 
-    public boolean isPassed() {
-        return this.passed;
-    }
+    public abstract void processarAtaque(Jogador atacante, Inimigo alvo);
+    public abstract boolean podeProcurar();
 
-    public void setPassed(boolean passed) {
-        this.passed = passed;
-    }
 
-    // Ver como printar os playes
+/*     // Ver como printar os playes
     @Override
     public String toString(){
         String sector = "";
@@ -81,10 +99,5 @@ public abstract class Sector{
         sector += "|  2/6   1/7  |\n";
         
         return sector;
-    }
-
-    // Provavelmete será necessário mudar ficou meio gambiara 
-    public boolean isOpen(Direction direcao) {
-        return this.doors[direcao.ordinal()].isOpen();
-    }
+    } */
 }

@@ -1,13 +1,21 @@
 package board.sector;
 
+import character.Inimigo;
+import character.Jogador;
+import utils.Posicao;
+
 public class PrivateSector extends Sector { 
-    public PrivateSector(int x, int y) {
-        super(x, y);
+    public PrivateSector(Posicao pos, boolean n, boolean s, boolean l, boolean o){
+        super(pos, n, s, l, o);
     }
 
-    // Lógica diferencial do privado para a procura de itens 
-    @Override
-    public int search(){
-        return 0;
+    @Override 
+    public void processarAtaque(Jogador atacante, Inimigo alvo){
+        atacante.atacar(alvo);
+    }
+
+    @Override 
+    public boolean podeProcurar() {
+        return false;
     }
 }

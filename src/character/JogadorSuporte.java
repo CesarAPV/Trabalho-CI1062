@@ -1,13 +1,14 @@
 package character;
 
-public class JogadorSuporte extends Jogador {
+public class JogadorSuporte extends Jogador implements Curador {
    /***************Construtor*******************/
    public JogadorSuporte() {
       super(1, 7);
    }
    
    /***************Habilidade Especial*******************/
-   public void recuperaDef(Jogador j) {
-      j.setDef(j.getDef() + 2);
+   public void recuperarDefesa(Jogador alvo) {
+      int alvoDef = alvo.getDef();
+      alvo.setDef(alvoDef + 2);
    }
 }
