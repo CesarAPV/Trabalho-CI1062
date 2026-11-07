@@ -1,9 +1,12 @@
 import java.util.Scanner;
 
+import javax.print.DocFlavor.STRING;
+
 import board.Board;
 import character.Jogador;
 import character.JogadorSimples;
 import character.JogadorSuporte;
+import character.Inimigo;
 import utils.Posicao;
 
 public class Game{
