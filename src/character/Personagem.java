@@ -23,6 +23,7 @@ public abstract class Personagem implements Atacante {
    public void setPos(Posicao pos) {
       this.pos = pos;
    }
+
    public void setDef(int def) {
       this.def = def;
    }
@@ -40,5 +41,8 @@ public abstract class Personagem implements Atacante {
          def = 0;
    }
    
-   public abstract void atacar(Personagem alvo);
+   /* Alterado para possibilidar o uso de "super" em inimigo */
+   public void atacar(Personagem alvo){
+      alvo.receberDano(this.atk);
+   }
 }

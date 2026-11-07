@@ -1,7 +1,5 @@
 package board.sector;
 
-import character.Inimigo;
-import character.Jogador;
 import utils.Posicao;
 
 public class NormalSector extends Sector { 
@@ -10,13 +8,4 @@ public class NormalSector extends Sector {
         super(pos, n, s, l, o);
     }
 
-    @Override 
-    public void processarAtaque(Jogador atacante, Inimigo alvo){
-        atacante.atacar(alvo);
-    }
-
-    @Override 
-    public boolean podeProcurar() {
-        return true;
-    }
 }

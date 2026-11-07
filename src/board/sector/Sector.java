@@ -1,6 +1,7 @@
 package board.sector;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import utils.Dado;
 import utils.Posicao;
@@ -72,14 +73,93 @@ public abstract class Sector{
             }
         }
     }
+    
+    // Implementei aqui esse método e deixei sobreposição somente no HiddenSector
+    public void processarAtaque(Jogador atacante, Inimigo alvo){
+        atacante.atacar(alvo);
+    }
+   
+    // Implementei aqui esse método e deixei sobreposição somente no PrivateSector;
+    public boolean podeProcurar(){
+        return true;
+    }
 
-    public abstract void processarAtaque(Jogador atacante, Inimigo alvo);
-    public abstract boolean podeProcurar();
-
-
-/*     // Ver como printar os playes
+    /* Precisa voltar com a implementação de Door */
     @Override
     public String toString(){
+        // Titulo
+        String setor;
+        String tituloSetor = "  Setor  [" + this.pos.getX() + ","
+        + this.pos.getY() + "]  \n";
+        setor = tituloSetor;
+
+        // Linha 1
+        String linhaOut;
+        linhaOut = "|-------" + (this.portas[Direction.UP.ordinal()].isOpen() ? "*" : "-")
+        + "------|\n";
+        setor += linhaOut;
+        /*System.out.println(linhaOut);*/
+
+        // Linha 2
+        linhaOut = "|";
+        for (Inimigo inimigo : inimigos)
+            linhaOut += " " + inimigo.getAtk() + "/" + inimigo.getDef();
+        
+        linhaOut += " |\n";
+        setor += linhaOut;
+
+        // Linha 3
+        linhaOut = "|             |";
+        setor += linhaOut;
+
+        // Linha 4
+        linhaOut = (this.portas[Direction.LEFT.ordinal()].isOpen() ? "*" : "|");
+        linhaOut += "             ";
+        linhaOut += (this.portas[Direction.RIGHT.ordinal()].isOpen() ? "*" : "|");
+        setor += linhaOut;
+
+        // Linha 5
+        linhaOut = "|  ";
+        /* 
+            Como vou saber quem chamou, no sentido de quantos
+            playes está aqui, pois cada "player" chama esse
+            método toString, mas o método não sabe se foi 
+            chamado por P1 (Jog.Simples), P2 (Jog.Suporte)
+            ou P1 e P2;
+            Precisa-se passar essa info para manipular a saida
+            desta linha do setor;   
+        */
+        // setor += linhaOut;
+
+        // Linha 6
+        /*
+            Fica refém da mesma informação da linha 5;    
+        */
+        // setor += linhaOut;
+
+        // Linha 7
+        linhaOut = "|-------" + (this.portas[Direction.DOWN.ordinal()].isOpen() ? "*" : "-")
+        + "------|";
+        setor += linhaOut;
+
+        return setor;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         String sector = "";
         sector += "|------"+ (this.doors[Direction.UP.ordinal()].isOpen()? "*" : "-") +"------|\n";
         
@@ -99,5 +179,5 @@ public abstract class Sector{
         sector += "|  2/6   1/7  |\n";
         
         return sector;
-    } */
+    }
 }

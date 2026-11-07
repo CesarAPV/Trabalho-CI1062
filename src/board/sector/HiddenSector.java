@@ -15,12 +15,7 @@ public class HiddenSector extends Sector {
     public void processarAtaque(Jogador atacante, Inimigo alvo){
         boolean podeAtacar = Dado.moeda();
         if(podeAtacar) {
-            atacante.atacar(alvo);
+            super.processarAtaque(atacante, alvo);
         }
-    }
-
-    @Override 
-    public boolean podeProcurar() {
-        return true;
     }
 }

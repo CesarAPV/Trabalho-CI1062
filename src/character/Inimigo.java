@@ -15,6 +15,10 @@ public class Inimigo extends Personagem {
    }
 
    @Override
+   /*
+      Como atacar não estava implementado em personagem
+      o super não funionava, logo atualizei a lógica;
+   */
    public void atacar(Personagem alvo) {
       int aleat = Dado.rolarDado();
 

@@ -21,7 +21,7 @@ public class Board {
     };
     private Sector[][] setores;
 
-    // construtor
+    // Construtor
     public Board() {
         setores = gerarSetores();
     }

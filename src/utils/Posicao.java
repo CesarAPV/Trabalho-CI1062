@@ -1,7 +1,11 @@
 package utils;
+
+/* Classe responsável pela Posição dos objetos no jogo */
 public class Posicao {
+	/******Atributos******/
 	private int x, y;
 
+	/*****Construtor*****/
 	public Posicao(int x, int y) {
 		if(1 <= x && x <= 5 && 1 <= y && y <= 5) {
 			this.x = x;
@@ -13,6 +17,10 @@ public class Posicao {
 		}
 	}
 	
+	/*****Getters*****/
 	public int getX(){return x;}
 	public int getY(){return y;}
+
+	/*****Setters*****/
+	// Voltar métodos aqui
 }
