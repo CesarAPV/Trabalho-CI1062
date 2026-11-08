@@ -8,10 +8,9 @@ import board.Direction;
 
 import character.Inimigo;
 import character.Jogador;
+import character.Personagem;
 
 public abstract class Sector{
-    // Mapa, visivel apenas para a propria classe
-
     // Atributos
     protected Posicao pos;
     protected boolean visitado;
@@ -72,32 +71,13 @@ public abstract class Sector{
             }
         }
     }
-
-    public abstract void processarAtaque(Jogador atacante, Inimigo alvo);
-    public abstract boolean podeProcurar();
-
-
-/*     // Ver como printar os playes
-    @Override
-    public String toString(){
-        String sector = "";
-        sector += "|------"+ (this.doors[Direction.UP.ordinal()].isOpen()? "*" : "-") +"------|\n";
-        
-        sector += "| ";
-        for(int i = 0; i <= numero inimigos; i++)
-            sector += this.enemys[i].toString()+" ";
-        for (int i = enemy.length; i < 4; i++)
-            sector += "    ";
-        sector += "|";
-
-        sector += "|             |\n";
-
-        sector += (this.doors[3].isOpen()? "*" : "|") + "             " + (this.doors[1].isOpen()? "*" : "|") + "\n";
-
-        // Provisório, depois ver como printar os players
-        sector += "|  P1    P2   |\n";
-        sector += "|  2/6   1/7  |\n";
-        
-        return sector;
-    } */
+    
+    public void processarAtaque(Personagem atacante, Personagem alvo){
+        atacante.atacar(alvo);
+    }
+   
+    // Implementei aqui esse método e deixei sobreposição somente no PrivateSector;
+    public boolean podeProcurar(){
+        return true;
+    }
 }
