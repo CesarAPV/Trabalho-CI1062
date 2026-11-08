@@ -1,8 +1,6 @@
 package board.sector;
 
-
-import character.Inimigo;
-import character.Jogador;
+import character.Personagem;
 import utils.Posicao;
 import utils.Dado;
 
@@ -12,7 +10,7 @@ public class HiddenSector extends Sector {
     }
 
     @Override 
-    public void processarAtaque(Jogador atacante, Inimigo alvo){
+    public void processarAtaque(Personagem atacante, Personagem alvo){
         boolean podeAtacar = Dado.moeda();
         if(podeAtacar) {
             super.processarAtaque(atacante, alvo);

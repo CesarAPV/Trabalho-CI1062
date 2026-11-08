@@ -93,11 +93,4 @@ public class Board {
     public Sector getSetor(int x, int y) {
         return setores[x-1][y-1];
     }
-
-/*     @Override
-    public String toString(){
-        char[][] board = this.genBoard();
-        System.out.println("");
-        return "Mudar retorno";
-    } */
 }
