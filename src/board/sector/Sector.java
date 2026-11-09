@@ -7,7 +7,6 @@ import utils.Posicao;
 import board.Direction;
 
 import character.Inimigo;
-import character.Jogador;
 
 public abstract class Sector{
     // Mapa, visivel apenas para a propria classe
@@ -73,8 +72,12 @@ public abstract class Sector{
         }
     }
 
-    public abstract void processarAtaque(Jogador atacante, Inimigo alvo);
-    public abstract boolean podeProcurar();
+    public boolean podeAtacar(){
+        return true;
+    }
+    public boolean podeProcurar(){
+        return true;
+    }
 
 
 /*     // Ver como printar os playes
