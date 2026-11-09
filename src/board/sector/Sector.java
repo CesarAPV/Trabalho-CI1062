@@ -3,11 +3,9 @@ package board.sector;
 import java.util.ArrayList;
 
 import utils.Dado;
+import utils.Direction;
 import utils.Posicao;
-import board.Direction;
-
 import character.Inimigo;
-import character.Jogador;
 import character.Personagem;
 
 public abstract class Sector{
@@ -34,9 +32,11 @@ public abstract class Sector{
     public boolean isVisitado() { return visitado; }
     public Posicao getPos() { return pos; }
     public Boolean[] getPortas() { return portas; }
+
     public Inimigo[] getInimigos() {
         Inimigo[] inim = new Inimigo[inimigos.size()];
         return inimigos.toArray(inim);
+
     }
 
     // Metodos set

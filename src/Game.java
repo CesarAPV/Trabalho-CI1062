@@ -1,6 +1,8 @@
 import java.util.Scanner;
 
 import board.Board;
+import board.sector.Sector;
+import character.Inimigo;
 import character.Jogador;
 import character.JogadorSimples;
 import character.JogadorSuporte;
@@ -32,8 +34,7 @@ public class Game{
         
         switch (input){
             case 'w', 'a', 's', 'd' -> {
-                Posicao pos = player.getPos();
-                
+
             }
             case '1', '2', '3' -> {
                 
@@ -42,24 +43,26 @@ public class Game{
 
             }
         }
+
+        scanner.close();
     }
    
     private void runInimigo (Jogador player){
         Posicao pos = player.getPos();
         Sector setor = board.getSetor(pos.getX(),pos.getY());
 
-        for (Inimigo setor.inimigos : inimigos) {
+        for(Inimigo inimigo : setor.getInimigos()) {
             inimigo.atacar(player);
         }
     }
 
     public int runRound (){
-        for (Jogador player : jogadores) {
+        for (Jogador player : players) {
             runPlayer(player);
             runPlayer(player);
         }
 
-        for (Jogador player : jogadores) {
+        for (Jogador player : players) {
             runInimigo(player);
         }
         
