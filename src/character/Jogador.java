@@ -11,12 +11,7 @@ public abstract class Jogador extends Personagem implements Explorador {
    
    /***************Metodos*******************/   
    public void movimentar(Sector destino) {
-      /* 
-      Basta verificar duas coisas:
-      - Se o setor destino está imediatamente ao redor 
-      - Se tiver, tem uma porta nesse caminho para poder atravessar?
-      Caso sim em ambos, apenas dar um setPos(new Position(destino.getPos()))
-      */
+      setPos(destino.getPos());
    }
 
    public void procurar(Sector destino) {
@@ -35,8 +30,4 @@ public abstract class Jogador extends Personagem implements Explorador {
       }
    }
 
-   @Override 
-   public void atacar(Personagem alvo) {
-      alvo.receberDano(atk);
-   }
 }

@@ -15,14 +15,15 @@ public abstract class Personagem implements Atacante {
    }
 
    /***************Getters*******************/
-   public int getAtk() { return this.atk; }
-   public int getDef() { return this.def; }
-   public Posicao getPos() { return this.pos; }
+   public int getAtk() { return atk; }
+   public int getDef() { return def; }
+   public Posicao getPos() { return pos; }
 
    /***************Setters*******************/
    public void setPos(Posicao pos) {
       this.pos = pos;
    }
+
    public void setDef(int def) {
       this.def = def;
    }
@@ -40,5 +41,8 @@ public abstract class Personagem implements Atacante {
          def = 0;
    }
    
-   public abstract void atacar(Personagem alvo);
+   /* Alterado para possibilidar o uso de "super" em inimigo */
+   public void atacar(Personagem alvo){
+      alvo.receberDano(atk);
+   }
 }

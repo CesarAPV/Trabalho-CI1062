@@ -3,14 +3,15 @@ package board.sector;
 import java.util.ArrayList;
 
 import utils.Dado;
+import utils.Direction;
 import utils.Posicao;
-import board.Direction;
-
 import character.Inimigo;
+<<<<<<< HEAD
+=======
+import character.Personagem;
+>>>>>>> 42bdcec1fe98940bdc2f08b578ffe57462427774
 
 public abstract class Sector{
-    // Mapa, visivel apenas para a propria classe
-
     // Atributos
     protected Posicao pos;
     protected boolean visitado;
@@ -34,9 +35,11 @@ public abstract class Sector{
     public boolean isVisitado() { return visitado; }
     public Posicao getPos() { return pos; }
     public Boolean[] getPortas() { return portas; }
+
     public Inimigo[] getInimigos() {
         Inimigo[] inim = new Inimigo[inimigos.size()];
         return inimigos.toArray(inim);
+
     }
 
     // Metodos set

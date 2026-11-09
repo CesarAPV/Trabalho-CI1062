@@ -1,6 +1,5 @@
 package board.sector;
 
-
 import utils.Dado;
 import utils.Posicao;
 

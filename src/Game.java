@@ -1,14 +1,12 @@
 import board.Board;
-import board.Direction;
-import board.sector.HiddenSector;
-import board.sector.PrivateSector;
+import board.sector.Sector;
+import character.Inimigo;
 import character.Jogador;
 import character.JogadorSimples;
 import character.JogadorSuporte;
 import java.util.Scanner;
+import utils.Direction;
 import utils.Posicao;
-import board.sector.Sector;
-import character.Inimigo;
 
 public class Game{
     private Board board;
@@ -70,12 +68,29 @@ public class Game{
                 }
             }
         }
+
+        scanner.close();
+    }
+   
+    private void runInimigo (Jogador player){
+        Posicao pos = player.getPos();
+        Sector setor = board.getSetor(pos.getX(),pos.getY());
+
+        for(Inimigo inimigo : setor.getInimigos()) {
+            inimigo.atacar(player);
+        }
     }
 
     public int runRound (){
-        for (Jogador player : jogadores) {
+        for (Jogador player : players) {
+            runPlayer(player);
             runPlayer(player);
         }
+
+        for (Jogador player : players) {
+            runInimigo(player);
+        }
+        
         return 0;
     }
 }
