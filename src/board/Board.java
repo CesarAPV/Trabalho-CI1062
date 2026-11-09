@@ -6,7 +6,7 @@ import utils.*;
 
 public class Board {
     // Nosso tabuleiro 0 "porta fechada", 1 setor, 2 "porta aberta"
-    private int [][] map = {
+    final private int [][] map = {
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
         {0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
