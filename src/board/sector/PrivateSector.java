@@ -1,14 +1,14 @@
 package board.sector;
 
-import utils.Posicao;
+import utils.Position;
 
 public class PrivateSector extends Sector { 
-    public PrivateSector(Posicao pos, boolean n, boolean s, boolean l, boolean o){
+    public PrivateSector(Position pos, boolean n, boolean s, boolean l, boolean o){
         super(pos, n, s, l, o);
     }
 
     @Override 
-    public boolean podeProcurar() {
+    public boolean canSearch() {
         return false;
     }
 }

@@ -19,46 +19,45 @@ public class Board {
         {0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0},
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
     };
-    private Sector[][] setores;
-
+    private Sector[][] sectors;
     // Construtor
     public Board() {
-        setores = gerarSetores();
+        sectors = gerarSetores();
     }
 
     private Sector[][] gerarSetores() {
-        Sector[][] setores = new Sector[5][5];
+        Sector[][] sectors = new Sector[5][5];
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                Posicao pos = new Posicao(i+1, j+1);
+                Position pos = new Position(i+1, j+1);
                 boolean n, s, l, o;
                 n = hasDoor(pos, Direction.UP);
                 s = hasDoor(pos, Direction.DOWN);
                 l = hasDoor(pos, Direction.RIGHT);
                 o = hasDoor(pos, Direction.LEFT);
 
-                int num = Dado.rolarIntervalo(0, 3);
+                int num = Die.interval(0, 3);
                 switch (num) {
                     case 0:
-                        setores[i][j] = new NormalSector(pos,n,s,l,o);
+                        sectors[i][j] = new NormalSector(pos,n,s,l,o);
                         break;
                     case 1:
-                        setores[i][j] = new HiddenSector(pos,n,s,l,o);
+                        sectors[i][j] = new HiddenSector(pos,n,s,l,o);
                         break;
                     case 2:
-                        setores[i][j] = new PrivateSector(pos,n,s,l,o);
+                        sectors[i][j] = new PrivateSector(pos,n,s,l,o);
                         break;
                 }
             }   
         }
-        int linInfec, colInfec;
+        int infecRow, infecCol;
         do {
-            linInfec = Dado.rolarIntervalo(0, 4);
-            colInfec = Dado.rolarIntervalo(0, 4);
-        } while(linInfec == 3 && colInfec == 3);
-        setores[linInfec][colInfec].Infectar();
+            infecRow = Die.interval(0, 4);
+            infecCol = Die.interval(0, 4);
+        } while(infecRow == 3 && infecCol == 3);
+        sectors[infecRow][infecCol].infect();
 
-        return setores;
+        return sectors;
     }
 
     private boolean isOpen(int i, int j) {
@@ -68,7 +67,7 @@ public class Board {
     }
 
     // Metodos publicos
-    public boolean hasDoor(Posicao pos, Direction dir) {
+    public boolean hasDoor(Position pos, Direction dir) {
         int x = 2*pos.getX() - 1;
         int y = 2*pos.getY() - 1;
 
@@ -90,7 +89,10 @@ public class Board {
         return isOpen(x, y);
     }
 
-    public Sector getSetor(int x, int y) {
-        return setores[x-1][y-1];
+    public Sector getSetor(Position pos) {
+        int row, col;
+        row = pos.getX() - 1;
+        col = pos.getY() - 1;
+        return sectors[row][col];
     }
 }

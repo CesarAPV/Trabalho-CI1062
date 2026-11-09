@@ -1,26 +1,26 @@
 package character;
 
-import utils.Posicao;
+import utils.Position;
 
-public abstract class Personagem implements Atacante {
+public abstract class Character implements Attacker {
    /***************Atributos*******************/
    protected int atk, def;
-   protected Posicao pos;
+   protected Position pos;
 
    /***************Construtor*******************/
-   public Personagem(int atk, int def, int x, int y) {
+   public Character(int atk, int def, int x, int y) {
       this.atk = atk;
       this.def = def;
-      this.pos = new Posicao(x, y);
+      this.pos = new Position(x, y);
    }
 
    /***************Getters*******************/
    public int getAtk() { return atk; }
    public int getDef() { return def; }
-   public Posicao getPos() { return pos; }
+   public Position getPos() { return pos; }
 
    /***************Setters*******************/
-   public void setPos(Posicao pos) {
+   public void setPos(Position pos) {
       this.pos = pos;
    }
 
@@ -29,20 +29,19 @@ public abstract class Personagem implements Atacante {
    }
 
    /***************Metodos*******************/
-   public boolean estaVivo() { 
+   public boolean isAlive() { 
       if(def <= 0)
          return false;
       return true;
    }
 
-   public void receberDano(int dmg) {
+   public void takeDmg(int dmg) {
       def -= dmg;
       if(def < 0)
          def = 0;
    }
    
-   /* Alterado para possibilidar o uso de "super" em inimigo */
-   public void atacar(Personagem alvo){
-      alvo.receberDano(atk);
+   public void attack(Character target){
+      target.takeDmg(atk);
    }
 }

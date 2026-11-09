@@ -1,21 +1,21 @@
 package character;
 
 import board.sector.Sector;
-import utils.Dado;
+import utils.Die;
 
-public abstract class Jogador extends Personagem implements Explorador {
+public abstract class Player extends Character implements Explorer {
    /***************Construtor*******************/
-   public Jogador(int atk, int def) {
+   public Player(int atk, int def) {
       super(atk, def, 3, 3);
    }
    
    /***************Metodos*******************/   
-   public void movimentar(Sector destino) {
-      setPos(destino.getPos());
+   public void move(Sector dest) {
+      setPos(dest.getPos());
    }
 
-   public void procurar(Sector destino) {
-      int dado = Dado.rolarDado();
+   public void search(Sector dest) {
+      int dado = Die.roll();
 
       if(dado <= 3)
          return;
@@ -24,8 +24,8 @@ public abstract class Jogador extends Personagem implements Explorador {
       else if(dado == 5)
          setDef(def + 2);
       else {
-         for (Inimigo inimigo : destino.getInimigos()) {
-            atacar(inimigo);
+         for (Enemy enemy : dest.getEnemies()) {
+            attack(enemy);
          }
       }
    }
