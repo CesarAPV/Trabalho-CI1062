@@ -25,7 +25,7 @@ public abstract class Player extends Character implements Explorer {
          setDef(def + 2);
       else {
          for (Enemy enemy : dest.getEnemies()) {
-            attack(enemy);
+            enemy.takeDmg(1);
          }
       }
    }

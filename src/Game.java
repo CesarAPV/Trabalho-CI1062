@@ -13,26 +13,65 @@ public class Game {
     private  Player[] players;
     private  int numPlayers;
     private  int round;
+    private  Scanner scanner;
 
-    public Game (int numPlayers){
+
+    public Game (){
         this.board = new Board();
-        this.numPlayers = numPlayers;
+        board.getSetor(new Position(3, 3)).setVisited(true);
+        this.numPlayers = 2;
         this.players = new Player[numPlayers];
         this.players[0] = new SimplePlayer();
         if(numPlayers > 1)
             this.players[1] = new SupportPlayer();
         
         this.round = 0;
+        this.scanner = new Scanner(System.in);
+    }
+
+    /*
+        Iterar o atributo round, e executar a rodada de cada jogador,
+         e depois a rodada dos inimigos.
+    */
+    public int runRound (){
+        for (Player player : players) {
+            runPlayer(player);
+            runPlayer(player);
+        }
+
+        System.out.println("Player 1 Life: (" +  players[0].getAtk() + "," + players[0].getDef() + 
+        ") Pos: (" + players[0].getPos().getX() + ", " + players[0].getPos().getY() + ")");
+        
+        System.out.println("Player 2 Life: (" +  players[1].getAtk() + "," + players[1].getDef() + 
+        ") Pos: (" + players[1].getPos().getX() + ", " + players[1].getPos().getY() + ")");
+
+
+        for (Player player : players) {
+            runInimigo(player);
+        }
+        
+        this.round++;
+
+        return 0;
+    }
+
+    public boolean isGameOver() {
+        if (this.round >= 1 || !this.players[0].isAlive()) {
+            return true;
+        }
+        return false;
     }
 
 
     private void runPlayer (Player player){
-        Scanner scanner = new Scanner(System.in);
+        if(!player.isAlive())
+            return;
+        
         char input;
         do{
             input = scanner.next().charAt(0);
-        } while(input != 'w' || input != 'a' || input != 's' || 
-        input != 'd' || input != '1' || input != '2' || input != '3' ||
+        } while(input != 'w' && input != 'a' && input != 's' && 
+        input != 'd' && input != '1' && input != '2' && input != '3' &&
         input != 'p');
 
         Position pos = player.getPos();
@@ -51,6 +90,12 @@ public class Game {
                 }
                 else if(input == 'd' && sector.getDoor(Direction.RIGHT)) {
                     player.move(board.getSetor(pos.shift(Direction.RIGHT)));
+                }
+
+                sector = board.getSetor(player.getPos());
+                if(!sector.isVisited()) {
+                    sector.setVisited(true);
+                    sector.genEnemies();
                 }
             }
             case '1', '2', '3' -> {
@@ -75,68 +120,30 @@ public class Game {
                     System.out.println("Setor Privado");
                 }
             }
+            case '4','5' -> {
+                if(player instanceof SupportPlayer) {
+                    if(input == '4' && (players[0].getPos().equals(players[1].getPos()))) {
+                        ((SupportPlayer)player).heal(players[0]);
+                    } 
+                    else {
+                        ((SupportPlayer)player).heal(player);
+                    }
+                }
+            }
         }
 
-        scanner.close();
     }
    
     private void runInimigo (Player player){
         Position pos = player.getPos();
         Sector sector = board.getSetor(pos);
 
-        for(Enemy enemy : sector.getEnemies()) {
-            enemy.attack(player);
-        }
-    }
+        if(sector.hasEnemiesAlive()) {
+            for(Enemy enemy : sector.getEnemies()) {
+                enemy.attack(player);
+                System.out.println("Inimigo Pos: ("+ enemy.getPos().getX() + ", " + enemy.getPos().getY() + ")");
 
-    /*
-        Iterar o atributo round, e executar a rodada de cada jogador,
-         e depois a rodada dos inimigos.
-    */
-    public int runRound (){
-        this.round++;
-        for (Player player : players) {
-            runPlayer(player);
-            runPlayer(player);
-        }
-
-        for (Player player : players) {
-            runInimigo(player);
-        }
-        
-        return 0;
-    }
-
-    /*
-        Como o jogo pode continuar caso o jogador suporte morra,
-        para o jogo acabar, verifico se o jogador simples morreu
-        ou se o round passou de 25.
-    */
-    public boolean isGameOver() {
-        if (this.round > 25 || !this.players[0].isAlive()) {
-            return true;
-        }
-        return false;
-    }
-
-    public void playGame(){
-        Scanner input = new Scanner(System.in);
-        int numPlayers;
-        Game game;
-        System.out.println("Bem-vindo ao jogo!");
-        System.out.println("Selecione o número de jogadores (1 ou 2):");
-        
-        do {
-            numPlayers = input.nextInt();
-            if (numPlayers < 1 || numPlayers > 2) {
-                System.out.println("Número de jogadores inválido. Por favor, selecione 1 ou 2.");
             }
-        } while (numPlayers < 1 || numPlayers > 2);
-        
-        game = new Game(numPlayers);
-        while (!game.isGameOver()) {
-            game.runRound();
         }
-        System.out.println("Fim de jogo!");
     }
 }

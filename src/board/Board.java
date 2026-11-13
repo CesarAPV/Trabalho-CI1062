@@ -36,7 +36,7 @@ public class Board {
                 l = hasDoor(pos, Direction.RIGHT);
                 o = hasDoor(pos, Direction.LEFT);
 
-                int num = Die.interval(0, 3);
+                int num = Die.interval(0, 2);
                 switch (num) {
                     case 0:
                         sectors[i][j] = new NormalSector(pos,n,s,l,o);
