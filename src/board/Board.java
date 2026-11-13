@@ -35,7 +35,7 @@ public class Board {
                 s = hasDoor(pos, Direction.DOWN);
                 l = hasDoor(pos, Direction.RIGHT);
                 o = hasDoor(pos, Direction.LEFT);
-
+ 
                 int num = Die.interval(0, 3);
                 switch (num) {
                     case 0:
@@ -89,10 +89,9 @@ public class Board {
         return isOpen(x, y);
     }
 
-    public Sector getSetor(Position pos) {
+    public Sector getSector(Position pos) {
         int row, col;
         row = pos.getX() - 1;
         col = pos.getY() - 1;
         return sectors[row][col];
     }
-}
