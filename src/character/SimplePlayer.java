@@ -1,8 +1,8 @@
 package character;
 
-public class JogadorSimples extends Jogador {
+public class SimplePlayer extends Player {
    /***************Construtor*******************/
-   public JogadorSimples() {
+   public SimplePlayer() {
        super(2,6);
    }
 }

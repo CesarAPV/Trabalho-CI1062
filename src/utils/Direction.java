@@ -1,4 +1,4 @@
-package board;
+package utils;
 
 public enum Direction {
     UP,
