@@ -9,14 +9,15 @@ import character.JogadorSuporte;
 import character.Inimigo;
 import utils.Posicao;
 
-public class Game{
-    private Board board;
-    private Player[] players;
-    private int round;
+public class Game {
+    private  Board board;
+    private  Player[] players;
+    private  int numPlayers;
+    private  int round;
 
     public Game (int numPlayers){
         this.board = new Board();
-        
+        this.numPlayers = numPlayers;
         this.players = new Player[numPlayers];
         this.players[0] = new SimplePlayer();
         if(numPlayers > 1)
@@ -31,10 +32,13 @@ public class Game{
         char input;
         do{
             input = scanner.next().charAt(0);
-        } while(input != 'w' || input != 'a' || input != 's' || input != 'd' || input != '1' || input != '2' || input != '3' || input != 'p');
+        } while(input != 'w' || input != 'a' || input != 's' || 
+        input != 'd' || input != '1' || input != '2' || input != '3' ||
+        input != 'p');
+
         Position pos = player.getPos();
         Sector sector = board.getSetor(pos);
-        
+
         switch (input){
             case 'w', 'a', 's', 'd' -> {
                 if(input == 'w' && sector.getDoor(Direction.UP)) {
@@ -86,7 +90,12 @@ public class Game{
         }
     }
 
+    /*
+        Iterar o atributo round, e executar a rodada de cada jogador,
+         e depois a rodada dos inimigos.
+    */
     public int runRound (){
+        this.round++;
         for (Player player : players) {
             runPlayer(player);
             runPlayer(player);
@@ -97,5 +106,38 @@ public class Game{
         }
         
         return 0;
+    }
+
+    /*
+        Como o jogo pode continuar caso o jogador suporte morra,
+        para o jogo acabar, verifico se o jogador simples morreu
+        ou se o round passou de 25.
+    */
+    public boolean isGameOver() {
+        if (this.round > 25 || !this.players[0].isAlive()) {
+            return true;
+        }
+        return false;
+    }
+
+    public void playGame(){
+        Scanner input = new Scanner(System.in);
+        int numPlayers;
+        Game game;
+        System.out.println("Bem-vindo ao jogo!");
+        System.out.println("Selecione o número de jogadores (1 ou 2):");
+        
+        do {
+            numPlayers = input.nextInt();
+            if (numPlayers < 1 || numPlayers > 2) {
+                System.out.println("Número de jogadores inválido. Por favor, selecione 1 ou 2.");
+            }
+        } while (numPlayers < 1 || numPlayers > 2);
+        
+        game = new Game(numPlayers);
+        while (!game.isGameOver()) {
+            game.runRound();
+        }
+        System.out.println("Fim de jogo!");
     }
 }

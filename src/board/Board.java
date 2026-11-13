@@ -42,7 +42,7 @@ ind.verificar porta -> {1,3,5,7,9} (Open ou close)
                 s = hasDoor(pos, Direction.DOWN);
                 l = hasDoor(pos, Direction.RIGHT);
                 o = hasDoor(pos, Direction.LEFT);
-
+ 
                 int num = Die.interval(0, 3);
                 switch (num) {
                     case 0:
@@ -96,10 +96,9 @@ ind.verificar porta -> {1,3,5,7,9} (Open ou close)
         return isOpen(x, y);
     }
 
-    public Sector getSetor(Position pos) {
+    public Sector getSector(Position pos) {
         int row, col;
         row = pos.getX() - 1;
         col = pos.getY() - 1;
         return sectors[row][col];
     }
-}

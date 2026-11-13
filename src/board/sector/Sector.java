@@ -26,6 +26,7 @@ public abstract class Sector{
     }
 
     // Metodos get
+    public boolean isInfected() { return infected; }
     public boolean isVisited() { return visited; }
     public Position getPos() { return pos; }
     public Boolean[] getDoors() { return doors; }
