@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import utils.*;
 import character.Enemy;
+import java.nio.file.DirectoryIteratorException;
 
 public abstract class Sector{
     // Atributos
@@ -103,24 +104,32 @@ public abstract class Sector{
     }
 
     public char[][] scheme(){
-        char[][] schame = new char[7][15];
+        char[][] scheme = new char[7][15];
 
-        for(int i = 1; i<14; i++)
-            for(int j = 0; j < 6; j++)
-                schame[i][j] = ' ';
-        for(int i=1; i<14; i++){
-            schame[0][i] = '-';
-            schame[6][i] = '-';
+        for(int i = 1; i < 6; i++)
+            for(int j = 1; j < 14; j++)
+                scheme[i][j] = ' ';
+        for(int i = 1; i<14; i++){
+            scheme[0][i] = '-';
+            scheme[6][i] = '-';
         }
-        for(int i=0; i<6; i++){
-            schame[i][0] = '|';
-            schame[i][14] = '|';
+        for(int i=0; i<7; i++){
+            scheme[i][0] = '|';
+            scheme[i][14] = '|';
         }
-        int i = 2;
-        for(Enemy e : enemies){
-            schame[1][]
-            i = i+3;
+        
+        int col = 2;
+        for (Enemy e : enemies) {
+            scheme[1][col] = e.toString.charAt(0); 
+            scheme[1][col+1] = e.toString.charAt(1);
+            scheme[1][col+2] = e.toString.charAt(2);
+            col += 4;
         }
+
+        if(this.doors[Direction.UP.ordinal()]) scheme[0][7] = '*';
+        if(this.doors[Direction.RIGHT.ordinal()]) scheme[3][14] = '*';
+        if(this.doors[Direction.LEFT.ordinal()]) scheme[3][0] = '*';
+        if(this.doors[Direction.DOWN.ordinal()]) scheme[6][7] = '*';
         
         return schame;
     }

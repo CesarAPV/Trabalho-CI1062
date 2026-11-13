@@ -102,3 +102,4 @@ ind.verificar porta -> {1,3,5,7,9} (Open ou close)
         col = pos.getY() - 1;
         return sectors[row][col];
     }
+}

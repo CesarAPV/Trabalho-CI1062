@@ -46,12 +46,8 @@ public abstract class Character implements Attacker {
    }
 
    @Override
-<<<<<<< HEAD
    public String toString() {
       String character = this.getAtk() + "/" + this.getDef();
       return character;
    }
-=======
-   public String toString() {return this.getAtk() + "/" + this.getDef();}
->>>>>>> origin/Game-Finalização
 }

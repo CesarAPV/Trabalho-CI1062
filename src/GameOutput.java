@@ -184,19 +184,28 @@ Jogador P1, J
 
     private String SectorOutput (Player P1, Player P2, Board board){
         if(P1.getPos() == P2.getPos()){
-            System.out.println("  Setor " + P1.getPos().toString() + "  ");
-            StringBuilder sector = new StringBuilder(board.getSetor(P1.getPos()).toString());
-            sector.replace(67, 69, "P1");
-            sector.replace(83, 86, P1.toString());
-            sector.replace(74, 76, "P2");
-            sector.replace(90, 93, P2.toString());
+            //System.out.println("  Setor " + P1.getPos().toString() + "  ");
+            char[][] sector = board.getSector(P1.getPos()).scheme();
+            
+            sector[4][3] = 'P'; sector[4][4] = '1';
+            sector[4][9] = 'P'; sector[4][10] = '2';
+            for(int i = 0; i < 4; i++){
+                sector[5][3+i] = P1.toString().charAt(i); 
+                sector[5][9+i] = P2.toString().charAt(i);
+            }
         } else {
-            System.out.println("  Setor " + P1.getPos().toString() + "  ");
-            StringBuilder sector = new StringBuilder(board.getSetor(P1.getPos()).toString());
-            sector.replace(67, 69, "P1");
-            sector.replace(83, 86, P1.toString());
-            sector.replace(74, 76, "P2");
-            sector.replace(90, 93, P2.toString());
+            char[][] sector1 = board.getSector(P1.getPos()).scheme();
+            sector1[4][3] = 'P'; sector1[4][4] = '1';
+            for(int i = 0; i < 4; i++)
+                sector1[5][3+i] = P1.toString().charAt(i); 
+            
+            char[][] sector2 = board.getSector(P2.getPos()).scheme();
+            sector2[4][3] = 'P'; sector2[4][4] = '2';
+            for(int i = 0; i < 4; i++)
+                sector2[5][3+i] = P2.toString().charAt(i); 
+
+            // eu quero 
+            
         }
     }   
 }
