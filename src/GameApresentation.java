@@ -4,6 +4,61 @@ import utils.*;
 
 public class GameApresentation {
 
+    private char [11][25] templateBoard;
+    /*Ver como Adicionar a representação da fonte de Infecção "X"*/
+    public GameApresentation(){
+        this.templateBoard = new char[11][25];
+        this.templateBoard = {
+            {" "," "," "," ","|","-","-","-","|","-","-","-","|","-","-","-","|","-","-","-","|","-","-","-","|"},
+            {"1"," "," "," ","|"," "," "," ","|"," "," "," ","|"," "," "," ","|"," "," "," ","|"," "," "," ","|"},
+            {" "," "," "," ","|","-","-","-","|","-","-","-","|","-","-","-","|","-","-","-","|","-","-","-","|"},
+            {"2"," "," "," ","|"," "," "," ","|"," "," "," ","|"," "," "," ","|"," "," "," ","|"," "," "," ","|"},
+            {" "," "," "," ","|","-","-","-","|","-","-","-","|","-","*","-","|","-","-","-","|","-","-","-","|"},
+            {"3"," "," "," ","|"," "," "," ","|"," "," "," ","*"," ","C"," ","*"," "," "," ","|"," "," "," ","|"},
+            {" "," "," "," ","|","-","-","-","|","-","-","-","|","-","*","-","|","-","-","-","|","-","-","-","|"},
+            {"4"," "," "," ","|"," "," "," ","|"," "," "," ","|"," "," "," ","|"," "," "," ","|"," "," "," ","|"},
+            {" "," "," "," ","|","-","-","-","|","-","-","-","|","-","-","-","|","-","-","-","|","-","-","-","|"},
+            {"5"," "," "," ","|"," "," "," ","|"," "," "," ","|"," "," "," ","|"," "," "," ","|"," "," "," ","|"},
+            {" "," "," "," ","|","-","-","-","|","-","-","-","|","-","-","-","|","-","-","-","|","-","-","-","|"},
+            }
+    /*
+        Os Indices dos setores serão:
+        Linhas: 1,3,5,7,9
+        Colunas: 6,10,14,18,22 
+
+        Cordenadas Setores
+        (1,1) -> (1,6)
+        (1,2) -> (1,10)
+        (1,3) -> (1,14)
+        (1,4) -> (1,18)
+        (1,5) -> (1,22)
+
+        (2,1) -> (3,6)
+        (2,2) -> (3,10)
+        (2,3) -> (3,14)
+        (2,4) -> (3,18)
+        (2,5) -> (3,22)
+
+        (3,1) -> (5,6)
+        (3,2) -> (5,10)
+        (3,3) -> (5,14)
+        (3,4) -> (5,18)
+        (3,5) -> (5,22)
+
+        (4,1) -> (7,6)
+        (4,2) -> (7,10)
+        (4,3) -> (7,14)
+        (4,4) -> (7,18)
+        (4,5) -> (7,22)
+
+        (5,1) -> (9,6)
+        (5,2) -> (9,10)
+        (5,3) -> (9,14)
+        (5,4) -> (9,18)
+        (5,5) -> (9,22)
+    */
+   
+    }
     /* Manter ? Foi somente uma ideia */
     public void printMenu(){
         String linhaOut = "----------------------------\n";
@@ -20,16 +75,93 @@ public class GameApresentation {
         System.out.print(linhaOut);
     }
 
+    private void updateTemplateBoard(Board board, Player P1, Player P2){
+
+        Position [2] positions = {P1.getPos(), P2.getPos()};
+        Sector [2] sectors = {board.getSector(positions[0]), board.getSector(positions[1])};
+        boolean [4] doors;
+        int i_TB, j_TB;
+        
+        /*
+            - Atualiza as portas que devem ser mostradas
+            para cada um dos setores que os jogadores estão, para então printar o board;
+            - Se são o mesmo setor, a dupla atualização não irá causar problemas, pois a 
+            mesma porta será atualizada duas vezes;
+        */
+        for (int i = 0; i < 2; i++){
+            doors = sectors[i].getDoors();
+            i_TB = 2*positions[i].getX() - 1;
+            j_TB = 4*positions[i].getY() - 2;
+            
+            if (doors[Direction.UP.ordinal()])
+                this.templateBoard[i_TB-1][j_TB] = "*";
+            if (doors[Direction.DOWN.ordinal()])
+                this.templateBoard[i_TB+1][j_TB] = "*";
+            if (doors[Direction.LEFT.ordinal()])
+                this.templateBoard[i_TB][j_TB-2] = "*";
+            if (doors[Direction.RIGHT.ordinal()])
+                this.templateBoard[i_TB][j_TB+2] = "*";
+        }
+
+        /*
+            - Atualiza o campo do template que representa os jogadores;
+        */
+        if(positions[0].getX() == positions[1].getX() && positions[0].getY() == positions[1].getY())
+            this.templateBoard[i_TB][j_TB] = 'P';
+        else{
+            for (int i = 0; i < 2; i++){
+                i_TB = 2*positions[i].getX() - 1;
+                j_TB = 4*positions[i].getY() - 2;
+                this.templateBoard[i_TB][j_TB-1] = 'P';
+                this.templateBoard[i_TB][j_TB] = (i == 0) ? '1' : '2';
+            }
+        }
+    }
+    
     public void printBoard(Board board, Player P1, Player P2){
-        Board boardAux = board;
-        Sector sectorAux;
+
+        this.updateTemplateBoard(board,P1,P2);
+        for(int i = 0; i < 11; i++) {
+            for (int j = 0; j < 25; j++) {
+                System.out.print(templateBoard[i][j]);
+            }
+            System.out.println();
+        }
+        this.undoUpdateTemplateBoard(board,P1,P2);
+    }
+
+    private void undoUpdateTemplateBoard(Board board, Player P1, Player P2){
+
+        Position [2] positions = {P1.getPos(), P2.getPos()};
+        Sector [2] sectors = {board.getSector(positions[0]), board.getSector(positions[1])};
+        boolean [4] doors;
+        int i_TB = 2*positions[0].getX() - 1;
+        int j_TB = 4*positions[0].getY() - 2;
+
+        /* Vai "limpar" os player do templateBoard, 
+            para ficar limpo o uso no próximo print
+        */
+        if(positions[0].getX() == positions[1].getX() && positions[0].getY() == positions[1].getY())
+            this.templateBoard[i_TB][j_TB] = ' ';
+        else{
+            for (int i = 0; i < 2; i++){
+                i_TB = 2*positions[i].getX() - 1;
+                j_TB = 4*positions[i].getY() - 2;
+                this.templateBoard[i_TB][j_TB-1] = ' ';
+                this.templateBoard[i_TB][j_TB] = ' ';
+            }
+        }
+    }
+
+/*      Board boardAux = board;
+        Sector spara então printar o board na próxima vez que for chamado o método printBoard ectorAux;
         Sector sectorP1 = boardAux.getSector(P1.getPos());
         Sector sectorP2 = boardAux.getSector(P2.getPos());
         Position posP1 = sectorP1.getPos();
         Position posP2 = sectorP2.getPos();
         boolean  flagLine;
 
-        /* Atualiza as portas que devem ser mostradas*/
+        /* Atualiza as portas que devem ser mostradas
         for (int i = 1; i < 6; i++) {
             for (int j = 1; j < 6; j++) {
                 Position posAux = new Position(i,j);
@@ -37,8 +169,8 @@ public class GameApresentation {
                 int j_board = 4*j - 2;
                 sectorAux = board.getSector(posAux);
                 
-                /* Atualiza no board as informações as portas para print;*/
-                /* Verificando se o setor foi visitado e não está infectado, para então printar as portas */
+                /* Atualiza no board as informações as portas para print;
+                /* Verificando se o setor foi visitado e não está infectado, para então printar as portas 
                 if (sectorAux.isVisited() && !sectorAux.isInfected()) {
                     if (sectorAux.getDoor(UP))
                         boardAux[i_board-1][j_board] = 2;
@@ -75,10 +207,10 @@ public class GameApresentation {
                         System.out.print("-");
                 }
                 else {
-                    
+
                 }
             }
-
+*/
 
             /*
                 Falta implementar a lógica de printar os inimigos, o P1 e o P2, e o X (fonte viral) e o C (centro do tabuleiro)
@@ -88,11 +220,11 @@ public class GameApresentation {
             */
         
 
+        }
+
+
+
     }
-
-
-
-
     
     
     

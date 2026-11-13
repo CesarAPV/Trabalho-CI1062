@@ -100,6 +100,6 @@ ind.verificar porta -> {1,3,5,7,9} (Open ou close)
         int row, col;
         row = pos.getX() - 1;
         col = pos.getY() - 1;
-        return sectors[row][col];
+        return this.sectors[row][col];
     }
 }
