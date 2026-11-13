@@ -38,6 +38,7 @@ public class Game {
             runPlayer(player);
         }
 
+        System.out.printf("\n\n======Estatisticas da rodada======\n\n");
         System.out.println("Player 1 Life: (" + players[0].getAtk() + "," + players[0].getDef() +
                 ") Pos: (" + players[0].getPos().getX() + ", " + players[0].getPos().getY() + ")");
 
@@ -47,6 +48,7 @@ public class Game {
         for (Player player : players) {
             runInimigo(player);
         }
+        System.out.printf("\n\n======Fim da rodada======\n\n");
 
         this.round++;
 
@@ -93,6 +95,9 @@ public class Game {
                         sector.genEnemies();
                     }
                 }
+                else {
+                    System.out.println("Tem inimigos vivos");
+                }
             }
             case '1', '2', '3' -> {
                 if (sector.canAttack()) {
@@ -133,10 +138,11 @@ public class Game {
         Sector sector = board.getSetor(pos);
 
         if (sector.hasEnemiesAlive()) {
+            System.out.printf("\n");
+
             for (Enemy enemy : sector.getEnemies()) {
                 enemy.attack(player);
                 System.out.println("Inimigo " + enemy);
-
             }
         }
     }

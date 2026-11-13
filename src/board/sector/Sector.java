@@ -44,6 +44,7 @@ public abstract class Sector{
 
     public void infect() {
         this.infected = true;
+        System.out.println("Setor " + getPos() + " Infectado");
     }
 
     // Outros metodos
