@@ -44,4 +44,10 @@ public abstract class Character implements Attacker {
    public void attack(Character target){
       target.takeDmg(atk);
    }
+
+   @Override
+   public String toString() {
+      String character = this.getAtk() + "/" + this.getDef();
+      return character;
+   }
 }

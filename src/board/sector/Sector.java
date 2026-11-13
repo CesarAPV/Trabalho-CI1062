@@ -75,4 +75,52 @@ public abstract class Sector{
     public boolean canSearch(){
         return true;
     }
+
+
+    @Override
+    public String toString(){
+        String sector = "";
+        sector += "|------"+ ((this.doors[Direction.UP.ordinal()])? "*" : "-") +"------|\n";
+        
+        sector += "| ";
+        for(int i = 0; i <= enemies.size(); i++)
+            sector += this.enemies.get(i).toString()+" ";
+        for (int i = enemies.size(); i < 4; i++)
+            sector += "    ";
+        sector += "|";
+
+        sector += "|             |\n";
+
+        sector += (this.doors[Direction.LEFT.ordinal()]? "*" : "|") + "             " + (this.doors[Direction.RIGHT.ordinal()] ? "*" : "|") + "\n";
+
+        sector += "|             |\n";
+        sector += "|             |\n";
+        
+        sector += "|------"+ ((this.doors[Direction.DOWN.ordinal()])? "*" : "-") +"------|\n";
+
+        return sector;
+    }
+
+    public char[][] scheme(){
+        char[][] schame = new char[7][15];
+
+        for(int i = 1; i<14; i++)
+            for(int j = 0; j < 6; j++)
+                schame[i][j] = ' ';
+        for(int i=1; i<14; i++){
+            schame[0][i] = '-';
+            schame[6][i] = '-';
+        }
+        for(int i=0; i<6; i++){
+            schame[i][0] = '|';
+            schame[i][14] = '|';
+        }
+        int i = 2;
+        for(Enemy e : enemies){
+            schame[1][]
+            i = i+3;
+        }
+        
+        return schame;
+    }
 }

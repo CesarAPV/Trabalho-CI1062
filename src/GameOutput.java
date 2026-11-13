@@ -2,10 +2,11 @@ import character.Inimigo;
 import character.Jogador;
 import board.sector.*;
 import board.*;
+import character.Player;
 import utils.*;
 
 
-public class GameApresentation {
+public class GameOutput {
 
     public void imprimirTitulo(){
         String linhaOut = "----------------------------\n";
@@ -111,7 +112,7 @@ public class GameApresentation {
         linhaOut += "\n";
 
     }
-
+Jogador P1, J
     public void verPosBoard(Posicao posSetor, Posicao posP1, Posicao posP2, String linhaOut){
         if(posP1.getX() == posP2.getX() && posP1.getY() == posP2.getY())
             if(posP1.getX() == posSetor.getX() && posP1.getY() == posSetor.getY())
@@ -123,7 +124,7 @@ public class GameApresentation {
                 else {linhaOut += "   ";}
     }
 
-    public void imprimirSetor(Sector setor, Jogador P1, Jogador P2){
+    /*public void imprimirSetor(Sector setor, Jogador P1, Jogador P2){
         String linhaOut;
         Posicao posSetor = setor.getPos();
         Posicao posP1 = P1.getPos();
@@ -179,9 +180,25 @@ public class GameApresentation {
 
         // Imprime a String Formatada Corretamente
         System.out.println(linhaOut);
-    }
+    }*/
 
-
+    private String SectorOutput (Player P1, Player P2, Board board){
+        if(P1.getPos() == P2.getPos()){
+            System.out.println("  Setor " + P1.getPos().toString() + "  ");
+            StringBuilder sector = new StringBuilder(board.getSetor(P1.getPos()).toString());
+            sector.replace(67, 69, "P1");
+            sector.replace(83, 86, P1.toString());
+            sector.replace(74, 76, "P2");
+            sector.replace(90, 93, P2.toString());
+        } else {
+            System.out.println("  Setor " + P1.getPos().toString() + "  ");
+            StringBuilder sector = new StringBuilder(board.getSetor(P1.getPos()).toString());
+            sector.replace(67, 69, "P1");
+            sector.replace(83, 86, P1.toString());
+            sector.replace(74, 76, "P2");
+            sector.replace(90, 93, P2.toString());
+        }
+    }   
 }
 
 
