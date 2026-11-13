@@ -1,6 +1,7 @@
 package board.sector;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import utils.*;
 import character.Enemy;
@@ -61,9 +62,12 @@ public abstract class Sector{
     } 
 
     private void removeDeadEnemies() {
-        for (Enemy enemy : enemies) {
+        Iterator <Enemy> it = enemies.iterator();
+        
+        while(it.hasNext()) {
+            Enemy enemy = it.next();
             if(!enemy.isAlive()) {
-                enemies.remove(enemy);
+                it.remove();
             }
         }
     }
@@ -74,4 +78,5 @@ public abstract class Sector{
     public boolean canSearch(){
         return true;
     }
+
 }

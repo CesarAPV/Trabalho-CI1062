@@ -43,6 +43,7 @@ public class Board {
                         break;
                     case 1:
                         sectors[i][j] = new HiddenSector(pos,n,s,l,o);
+                        System.out.println(pos);
                         break;
                     case 2:
                         sectors[i][j] = new PrivateSector(pos,n,s,l,o);
