@@ -27,7 +27,9 @@ public class GameApresentation {
         Sector sectorP2 = boardAux.getSector(P2.getPos());
         Position posP1 = sectorP1.getPos();
         Position posP2 = sectorP2.getPos();
+        boolean  flagLine;
 
+        /* Atualiza as portas que devem ser mostradas*/
         for (int i = 1; i < 6; i++) {
             for (int j = 1; j < 6; j++) {
                 Position posAux = new Position(i,j);
@@ -39,15 +41,44 @@ public class GameApresentation {
                 /* Verificando se o setor foi visitado e não está infectado, para então printar as portas */
                 if (sectorAux.isVisited() && !sectorAux.isInfected()) {
                     if (sectorAux.getDoor(UP))
-                        boardAux[i_board-1][j_board] = "*";
+                        boardAux[i_board-1][j_board] = 2;
                     if (sectorAux.getDoor(DOWN))
-                        boardAux[i_board+1][j_board] = "*";
+                        boardAux[i_board+1][j_board] = 2;
                     if (sectorAux.getDoor(LEFT))
-                        boardAux[i_board][j_board-2] = "*";
+                        boardAux[i_board][j_board-2] = 2;
                     if (sectorAux.getDoor(RIGHT))
-                        boardAux[i_board][j_board+2] = "*";
+                        boardAux[i_board][j_board+2] = 2;
                 }   
             }
+        }
+
+        for (int i = 0; i < 11; i++) {
+            if (i == 1 || i == 3 || i == 5 || i == 7 || i == 9){
+                flagLine = true;
+                System.out.print((int)(Math.ceil(i/2.0)) + "    |");
+            }
+            else{
+                flagLine = false;
+                System.out.print("     |");
+            }
+
+            for (int j = 0; j < 11; j++) {
+                if (flagLine){
+                    if(board[i][j] == 0)
+                        if (j == 2 | j == 4 | j == 6 | j == 8 | j == 10)
+                            System.out.print("-|-");
+                        else
+                            System.out.print("-");
+                    else if (board[i][j] == 2)
+                        System.out.print("*");
+                    else
+                        System.out.print("-");
+                }
+                else {
+                    
+                }
+            }
+
 
             /*
                 Falta implementar a lógica de printar os inimigos, o P1 e o P2, e o X (fonte viral) e o C (centro do tabuleiro)
@@ -55,17 +86,17 @@ public class GameApresentation {
            /*
                 Falta Fazer o for para printar em sim com a lógica;
             */
-        }
+        
 
-
-
-
-
-
-    
-    
-    
     }
+
+
+
+
+    
+    
+    
+}
 
 
 
