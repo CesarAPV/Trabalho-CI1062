@@ -46,7 +46,6 @@ public abstract class Sector{
     }
 
     // Outros metodos
-    /// Metodos referentes a enemies
     protected void genEnemies() {
         int numenemies = Die.interval(1, 3);
         for(int i = 0; i < numenemies; i++) {

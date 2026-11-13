@@ -54,7 +54,7 @@ public class Board {
         do {
             infecRow = Die.interval(0, 4);
             infecCol = Die.interval(0, 4);
-        } while(infecRow == 3 && infecCol == 3);
+        } while(infecRow == 2 && infecCol == 2);
         sectors[infecRow][infecCol].infect();
 
         return sectors;

@@ -26,16 +26,16 @@ public class Position {
 		int y = getY();
 		switch (dir) {
 			case UP:
-				y--;
+				x--;
 				break;
 			case DOWN:
-				y++;
-				break;
-			case RIGHT:
 				x++;
 				break;
+			case RIGHT:
+				y++;
+				break;
 			case LEFT:
-				x--;
+				y--;
 				break;
 			default:
 				break;
