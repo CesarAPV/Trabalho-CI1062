@@ -48,8 +48,8 @@ public class Game {
 
         System.out.printf("\n\n======Estatisticas da rodada======\n\n");
         System.out.println("\n====Players antes do ataque inimigo====\n");
-        System.out.println("Player 1 " + players[0]);
-        System.out.println("Player 2 " + players[1]);
+        System.out.println("Player 1 " + players[0].toString());
+        System.out.println("Player 2 " + players[1].toString());
 
         if(!someoneFoundInfection()) {
             for (Player player : players) {
@@ -195,7 +195,7 @@ public class Game {
 
     private boolean someoneFoundInfection() {
         for (Player player : players) {
-            if(player.isAlive() && board.getSector(player.getPos()).isInfected()) {
+            if(player.isAlive() && board.getInfectionPosition().equals(player.getPos())) {
                 return true;
             }
         }
