@@ -35,7 +35,6 @@ public class Game {
      * e depois a rodada dos inimigos.
      */
     public int runRound() {
-        this.gameOut.printGame(this.board,this.players[0],this.players[1], round);
 
         for(int i = 0; i < numPlayers; i++) {
             this.gameOut.printGame(this.board,this.players[0],this.players[1], round);
@@ -90,7 +89,7 @@ public class Game {
         boolean validAction = false;
 
         while (!validAction) {
-            this.gameOut.printMenuMove();
+            this.gameOut.printMenuMove(player);
             char input = scanner.next().toLowerCase().charAt(0);
 
             pos = player.getPos();
