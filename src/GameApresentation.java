@@ -76,10 +76,10 @@ public class GameApresentation {
 
         System.out.println(this.templateBoard[0]);
         System.out.println(this.templateBoard[1]);
-        System.out.print(this.templateBoard[2] + "\t"); this.printTitleSector(board, P1, P2);
+        System.out.print(new String(this.templateBoard[2]) + "\t"); this.printTitleSector(board, P1, P2);
         System.out.println(this.templateBoard[3]);
         for(int i = 4; i < 11; i++)
-            System.out.println(this.templateBoard[i] + "\t" + sectors[i]);
+            System.out.println(new String(this.templateBoard[i]) + "\t" + new String(sectors[i - 4]));
          System.out.println(this.templateBoard[11]);
 
         this.clearTemplateSector();
