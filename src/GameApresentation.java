@@ -93,6 +93,7 @@ public class GameApresentation {
     private void updateTemplateBoard(Board board, Player P1, Player P2) {
 
         Position[] positions = {P1.getPos(), P2.getPos()};
+        Position center = new Position(3,3);
         Sector[] sectors = {board.getSector(positions[0]), board.getSector(positions[1])};
         Boolean[] doors = new Boolean[4];
         int i_TB = 0, j_TB = 0;
@@ -100,7 +101,6 @@ public class GameApresentation {
         // Atualiza as portas que devem ser mostradas
         for (int i = 0; i < 2; i++) {
             doors = sectors[i].getDoors();
-            /* acho que tu confundiu com o position */
             i_TB = 2 * positions[i].getX();
             j_TB = 4 * positions[i].getY() + 2;
 
@@ -118,8 +118,13 @@ public class GameApresentation {
             }
 
             // Atualiza o campo do template que representa os jogadores;
-            this.templateBoard[i_TB][j_TB] = 'P';
-            this.templateBoard[i_TB][j_TB + 1] = (i == 0) ? '1' : '2';
+            if(!positions[i].equals(center)){
+                this.templateBoard[i_TB][j_TB] = 'P';
+                this.templateBoard[i_TB][j_TB + 1] = (i == 0) ? '1' : '2';
+            }
+            else
+                this.templateBoard[i_TB][j_TB] = 'C';
+
         }
 
         // Se estão no mesmo lugar corrige os números
@@ -130,6 +135,7 @@ public class GameApresentation {
 
     private void clearTemplateBoard(Player P1, Player P2) {
         Position[] positions = {P1.getPos(), P2.getPos()};
+        Position center = new Position(3,3);
         int i_TB = 2 * positions[0].getX();
         int j_TB = 4 * positions[0].getY() + 2;
 
@@ -137,6 +143,7 @@ public class GameApresentation {
         this.templateBoard[i_TB][j_TB + 1] = ' ';
 
         if (!positions[0].equals(positions[1])) {
+            /* Está correto essa algebra ? */
             i_TB = 2 * positions[1].getX() - 1;
             j_TB = 4 * positions[1].getY() - 2;
             this.templateBoard[i_TB][j_TB] = ' ';
