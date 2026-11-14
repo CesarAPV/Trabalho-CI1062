@@ -126,7 +126,7 @@ public class Game {
 
                     if(!sector.isVisited()) {
                         sector.setVisited(true);
-                        if(!sector.isInfected()) {
+                        if(!board.getInfectionPosition().equals(player.getPos())) {
                             sector.genEnemies();
                         }
                     }
