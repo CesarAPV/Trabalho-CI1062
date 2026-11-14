@@ -36,6 +36,11 @@ public class GameApresentation {
             {'|', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '|'},
             {'|', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '|'},
         };
+        
+        int i_TB = 2 * infecPosition.getX();
+        int j_TB = 4 * infecPosition.getY() + 2;
+        this.templateBoard[i_TB][j_TB] = 'X';
+
     }
 
     // Métodos de cabeçalho 
@@ -56,21 +61,27 @@ public class GameApresentation {
         Position posP1 = P1.getPos();
         Position posP2 = P2.getPos();
   
-        System.out.print("    Sector  " + posP1.toString());
+        System.out.print("  Sector " + posP1.toString() + "  ");
         if(!posP1.equals(posP2)){
-            System.out.print("   Sector  " + posP2.toString());
+            System.out.print("     Sector " + posP2.toString() + "  ");
         }
+        System.out.print("\n");
     }
 
-    public void printBoard(Board board, Player P1, Player P2) {
+    public void printGame(Board board, Player P1, Player P2) {
 
         this.updateTemplateBoard(board, P1, P2);
-        for (int i = 0; i < 12; i++) {
-                System.out.print(templateBoard[i]);
-                if(i == 2)
-                    this.printTitleSector(board, P1, P2);
-                System.out.println();
-        }
+        char[][] sectors = updateTemplateSector(P1, P2, board);
+
+        System.out.println(this.templateBoard[0]);
+        System.out.println(this.templateBoard[1]);
+        System.out.print(this.templateBoard[2] + "\t"); this.printTitleSector(board, P1, P2);
+        System.out.println(this.templateBoard[3]);
+        for(int i = 4; i < 11; i++)
+            System.out.println(this.templateBoard[i] + "\t" + sector[i]);
+         System.out.println(this.templateBoard[11]);
+
+        this.clearTemplateSector()
         this.clearTemplateBoard(P1, P2);
     }
 
@@ -87,8 +98,8 @@ public class GameApresentation {
         // Atualiza as portas que devem ser mostradas
         for (int i = 0; i < 2; i++) {
             doors = sectors[i].getDoors();
-            i_TB = 5 * (positions[i].getX() - 1) + 7;
-            j_TB = 2 * (positions[i].getY() - 1) + 3;
+            i_TB = 2 * infecPosition.getX();
+            j_TB = 4 * infecPosition.getY() + 2;
 
             if (doors[Direction.UP.ordinal()]) {
                 this.templateBoard[i_TB - 1][j_TB] = '*';
@@ -116,8 +127,8 @@ public class GameApresentation {
 
     private void clearTemplateBoard(Player P1, Player P2) {
         Position[] positions = {P1.getPos(), P2.getPos()};
-        int i_TB = 5 * (positions[1].getX() - 1) + 7;
-        int j_TB = 2 * (positions[1].getY() - 1) + 3;
+        int i_TB = 2 * infecPosition.getX();
+        int j_TB = 4 * infecPosition.getY() + 2;
 
         this.templateBoard[i_TB][j_TB] = ' ';
         this.templateBoard[i_TB][j_TB + 1] = ' ';
