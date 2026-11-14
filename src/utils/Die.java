@@ -4,7 +4,7 @@ import java.util.Random;
 
 /* Classe para encapsular as ações de aleatoriedade */
 public class Die {
-    private static final Random rand = new Random(42);
+    private static final Random rand = new Random();
 
     private Die() {};
     
