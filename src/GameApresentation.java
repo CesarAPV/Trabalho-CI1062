@@ -144,8 +144,8 @@ public class GameApresentation {
 
         if (!positions[0].equals(positions[1])) {
             /* Está correto essa algebra ? */
-            i_TB = 2 * positions[1].getX() - 1;
-            j_TB = 4 * positions[1].getY() - 2;
+            i_TB = 2 * positions[1].getX() ;
+            j_TB = 4 * positions[1].getY() + 2;
             this.templateBoard[i_TB][j_TB] = ' ';
             this.templateBoard[i_TB][j_TB + 1] = ' ';
         }
