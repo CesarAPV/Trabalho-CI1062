@@ -14,7 +14,7 @@ public class Game {
     private int numPlayers;
     private int round;
     private Scanner scanner;
-    private GameApresentation gameOut;
+    private GameOutput gameOut;
 
     public Game() {
         this.board = new Board();
@@ -26,7 +26,7 @@ public class Game {
             this.players[1] = new SupportPlayer((SimplePlayer) players[0]);
 
         this.round = 0;
-        this.gameOut = new GameApresentation(board.getInfectionPosition());
+        this.gameOut = new GameOutput(board.getInfectionPosition());
         this.scanner = new Scanner(System.in);
     }
 
