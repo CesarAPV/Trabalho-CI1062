@@ -52,10 +52,10 @@ public class GameApresentation {
     }
 
     public void printTitle(int round) {
-        System.out.print("----------------------------\n"
-                     + "|    Antivírus por um dia   |\n"
-                     + "----------------------------\n");
-        System.out.println("\n============= Ciclo " + (round + 1) + " / 25 =============\n");
+        System.out.print(   "----------------------------\n"+
+                            "|   Antivírus por um dia   |\n"+
+                            "|        Ciclo:"+(round + 1)+"/25        |\n"+
+                            "----------------------------\n");
     }
 
     public void printTitleSector(Board board, Player P1, Player P2){
