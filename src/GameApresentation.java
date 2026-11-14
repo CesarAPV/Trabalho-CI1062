@@ -46,19 +46,29 @@ public class GameApresentation {
     }
 
     public void printTitle() {
-        System.out.print(   "----------------------------\n"+
-                            "|    Antivírus por um dia    |\n"+
-                            "----------------------------\n");
+        System.out.print("----------------------------\n"
+                     + "|    Antivírus por um dia    |\n"
+                     + "----------------------------\n");
+    }
+
+    public void printTitleSector(Board board, Player P1, Player P2){
+        Position posP1 = P1.getPos();
+        Position posP2 = P2.getPos();
+  
+        System.out.print("    Sector  " + posP1.toString());
+        if(!posP1.equals(posP2)){
+            System.out.print("   Sector  " + posP2.toString());
+        }
     }
 
     public void printBoard(Board board, Player P1, Player P2) {
 
         this.updateTemplateBoard(board, P1, P2);
-        for (int i = 0; i < 11; i++) {
-            for (int j = 0; j < 25; j++) {
+        for (int i = 0; i < 12; i++) {
                 System.out.print(templateBoard[i]);
-            }
-            System.out.println();
+                if(i == 2)
+                    this.printTitleSector(board, P1, P2);
+                System.out.println();
         }
         this.undoUpdateTemplateBoard(board, P1, P2);
     }
