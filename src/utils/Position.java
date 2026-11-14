@@ -48,4 +48,8 @@ public class Position {
     public String toString(){
 		return "[" + this.getX() + "," + this.getY() + "]";
 	}
+
+    public boolean equals(Position pos) {
+        return this.x == pos.getX() && this.y == pos.getY();
+    }
 }
