@@ -34,10 +34,6 @@ public class Game {
      */
     public int runRound() {
         System.out.println("\n============== Ciclo " + (round + 1) + " / 25 ==============");
-
-
-
-
         for(int i = 0; i < numPlayers; i++) {
             Player player = players[i];
             if(!player.isAlive()) continue;
@@ -141,10 +137,14 @@ public class Game {
 
         boolean validAction = false;
         while (!validAction) {
-            System.out.println("Acao: (1/2/3=atacar, p=procurar, 4/5=curar)");
+            System.out.println("Acao: (1/2/3=atacar, p=procurar, 4/5=curar, 0=passar)");
             char input = scanner.next().toLowerCase().charAt(0);
 
             switch (input) {
+                case '0' -> {
+                    System.out.println("Passou a vez");
+                    validAction = true;
+                }
                 case '1', '2', '3' -> {
                     Enemy[] enemies = sector.getEnemies();
                     int index = input - '1'; // '1' -> 0, '2' -> 1, '3' -> 2
@@ -210,7 +210,7 @@ public class Game {
     private void printEnemies(Sector sector) {
         int i = 1;
         for (Enemy enemy : sector.getEnemies()) {
-            System.out.println("Inimigo " + i + enemy);
+            System.out.println("Inimigo " + i + " "+ enemy);
             i++;
         }
     }
