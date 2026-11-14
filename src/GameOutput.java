@@ -234,7 +234,7 @@ public class GameOutput {
             this.templateSector[4][4] = '1';
             for (int i = 0; i < 3; i++)
                 this.templateSector[5][3 + i] = P1.toString().charAt(i);
-            if(P2.getDef()>9)
+            if(P1.getDef()>9)
                 this.templateSector[5][6] = P1.toString().charAt(3);
         } else {
             this.templateSector[4][3] = 'P';
