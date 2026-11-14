@@ -53,7 +53,7 @@ public class Position {
 		if(o instanceof Position) {
 			Position aux = (Position)o;
 			if(this.x == aux.getX() && this.y == aux.getY())
-			return true;
+				return true;
 		}
 		return false;
 	}

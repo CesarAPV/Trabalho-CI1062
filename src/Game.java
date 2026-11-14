@@ -36,7 +36,9 @@ public class Game {
         System.out.println("\n============== Ciclo " + (round + 1) + " / 25 ==============");
     
         for (Player player : players) {
+            if(someoneFoundInfection()) break;
             runPlayer(player);
+            if(someoneFoundInfection()) break;
             runPlayer(player);
         }
 
@@ -45,9 +47,10 @@ public class Game {
         System.out.println("Player 1 " + players[0]);
         System.out.println("Player 2 " + players[1]);
 
-        if(!isGameOver()) {
+        if(!someoneFoundInfection()) {
             for (Player player : players) {
-                runInimigo(player);
+                if(player.isAlive()) 
+                    runInimigo(player);
             }
         }
 
@@ -182,5 +185,14 @@ public class Game {
                 enemy.attack(player);
             }
         }
+    }
+
+    private boolean someoneFoundInfection() {
+        for (Player player : players) {
+            if(player.isAlive() && board.getSetor(player.getPos()).isInfected()) {
+                return true;
+            }
+        }
+        return false;
     }
 }
