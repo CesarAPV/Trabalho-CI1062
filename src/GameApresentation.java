@@ -135,7 +135,6 @@ public class GameApresentation {
 
     private void clearTemplateBoard(Player P1, Player P2) {
         Position[] positions = {P1.getPos(), P2.getPos()};
-        Position center = new Position(3,3);
         int i_TB = 2 * positions[0].getX();
         int j_TB = 4 * positions[0].getY() + 2;
 

@@ -71,7 +71,7 @@ public class Game {
 
     public boolean isGameOver() {
         for (int i = 0; i < numPlayers; i++) {
-            if (players[i].isAlive() && board.getInfectionPosition().equals(player[i].getPos())) {
+            if (players[i].isAlive() && board.getInfectionPosition().equals(players[i].getPos())) {
                 System.out.println("\nVitoria!!! O jogador P" + (i + 1) + " encontrou a fonte da infeccao (X)!");
                 return true;
             }
@@ -89,15 +89,15 @@ public class Game {
     
     private void movePlayer(Player player) {
         Position pos = player.getPos();
-        Sector sector = board.getSetor(pos);
+        Sector sector = board.getSector(pos);
         boolean validAction = false;
 
         while (!validAction) {
             System.out.println("Movimento: escolha uma porta (w=Cima, a=Esq, s=Baixo, d=Dir)");
             char input = scanner.next().toLowerCase().charAt(0);
 
-            Position pos = player.getPos();
-            Sector sector = board.getSector(pos);
+            pos = player.getPos();
+            sector = board.getSector(pos);
             Direction dir;
             
             switch (input) {
@@ -118,11 +118,11 @@ public class Game {
                 continue;
             }
 
-            player.move(board.getSetor(pos.shift(dir)));
-            sector = board.getSetor(player.getPos());
+            player.move(board.getSector(pos.shift(dir)));
+            sector = board.getSector(player.getPos());
             if (!sector.isVisited()) {
                 sector.setVisited(true);
-                if (!sector.isInfected()) {
+                if (!board.getInfectionPosition().equals(sector.getPos())) {
                     sector.genEnemies();
                 }
             }
@@ -131,7 +131,7 @@ public class Game {
     }
 
     private void actionPlayer(Player player) {
-        Sector sector = board.getSetor(player.getPos());
+        Sector sector = board.getSector(player.getPos());
 
         boolean validAction = false;
         while (!validAction) {
