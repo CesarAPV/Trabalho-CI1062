@@ -173,7 +173,6 @@ public class GameOutput {
             for (int i = 0; i < 7; i++)
                 for (int j = 0; j < 15; j++)
                     sectors[i][j] = this.templateSector[i][j];
-                    //sectors[i][j + 18] = sector2[i][j];
             
             clearTemplateSector();
             sectorUpdate(null, P2, board);
@@ -235,20 +234,25 @@ public class GameOutput {
             this.templateSector[4][4] = '1';
             for (int i = 0; i < 3; i++)
                 this.templateSector[5][3 + i] = P1.toString().charAt(i);
+            if(P2.getDef()>9)
+                this.templateSector[5][6] = P1.toString().charAt(3);
         } else {
             this.templateSector[4][3] = 'P';
             this.templateSector[4][4] = '2';
             for (int i = 0; i < 3; i++)
                 this.templateSector[5][3 + i] = P2.toString().charAt(i);
+            if(P2.getDef()>9)
+                this.templateSector[5][6] = P2.toString().charAt(3);
             return;
         }
 
         if(P2 != null ){
             this.templateSector[4][9] = 'P';
             this.templateSector[4][10] = '2';
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 3; i++) 
                 this.templateSector[5][9 + i] = P2.toString().charAt(i);
-            }
+            if(P2.getDef()>9)
+                this.templateSector[5][12] = P2.toString().charAt(3);
         }
     }
 }
