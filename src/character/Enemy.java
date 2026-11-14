@@ -20,6 +20,9 @@ public class Enemy extends Character {
 
       if (rand % 2 == 0) {
          super.attack(alvo);
+         System.out.println("Inimigo " + this + " acertou o ataque!");
+      } else {
+         System.out.println("Inimigo " + this + " errou o ataque!");
       }
    }
 }

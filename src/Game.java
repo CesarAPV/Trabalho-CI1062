@@ -33,6 +33,8 @@ public class Game {
      * e depois a rodada dos inimigos.
      */
     public int runRound() {
+        System.out.println("\n============== Ciclo " + (round + 1) + " / 25 ==============");
+    
         for (Player player : players) {
             runPlayer(player);
             runPlayer(player);
@@ -56,8 +58,19 @@ public class Game {
     }
 
     public boolean isGameOver() {
-        if (this.round >= 6 || !this.players[0].isAlive()) {
+        for(int i = 0; i < numPlayers; i++) {
+            if(players[i].isAlive() && board.getSetor(players[i].getPos()).isInfected()) {
+                System.out.println("\nVitoria!!! O jogador P"+ (i+1) + " encontrou a fonte da infeccao (X)!");
+                return true;
+            }
+        }
+        if(!players[0].isAlive() || (!players[0].isAlive() && !players[1].isAlive())) {
+            System.out.println("\nDerrota!!! Os jogadores foram eliminados pelo virus!");
             return true;
+        }
+        if(round >= 25) {
+            System.out.println("\nDerrota!!! O limite de 25 turnos foi ultrapassado!");
+            return true; 
         }
         return false;
     }
@@ -90,6 +103,10 @@ public class Game {
                     }
 
                     sector = board.getSetor(player.getPos());
+                    if(sector.isInfected()) {
+                        
+                    }
+
                     if (!sector.isVisited()) {
                         sector.setVisited(true);
                         sector.genEnemies();
@@ -105,10 +122,12 @@ public class Game {
                     int tamanho = enemies.length;
                     if (input == '1' && tamanho >= 1)
                         player.attack(enemies[0]);
-                    else if (input == '1' && tamanho >= 2)
+                    else if (input == '2' && tamanho >= 2)
                         player.attack(enemies[1]);
-                    else if (input == '1' && tamanho == 3)
+                    else if (input == '3' && tamanho == 3)
                         player.attack(enemies[2]);
+
+                    sector.hasEnemiesAlive();
                 } else {
                     System.out.println("Setor Escondido");
                 }
@@ -142,7 +161,7 @@ public class Game {
 
             for (Enemy enemy : sector.getEnemies()) {
                 enemy.attack(player);
-                System.out.println("Inimigo " + enemy);
+                //System.out.println("Inimigo " + enemy);
             }
         }
     }

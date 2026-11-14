@@ -31,6 +31,7 @@ public abstract class Sector{
     public Position getPos() { return pos; }
     public Boolean[] getDoors() { return doors; }
     public boolean getDoor(Direction dir) { return doors[dir.ordinal()]; }
+    public boolean isInfected() { return infected; }
 
     public Enemy[] getEnemies() {
         Enemy[] enemiesArr = new Enemy[enemies.size()];
@@ -63,7 +64,7 @@ public abstract class Sector{
     } 
 
     private void removeDeadEnemies() {
-        Iterator <Enemy> it = enemies.iterator();
+        Iterator<Enemy> it = enemies.iterator();
         
         while(it.hasNext()) {
             Enemy enemy = it.next();

@@ -17,16 +17,20 @@ public abstract class Player extends Character implements Explorer {
    public void search(Sector dest) {
       int dado = Die.roll();
 
-      if(dado <= 3)
-         return;
-      else if(dado == 4)
+      System.out.println("Procura Sorteou " + dado + ":");
+      if(dado <= 3) {
+         System.out.println("Nada foi encontrado no setor.");
+      } else if(dado == 4) {
          setDef(def + 1);
-      else if(dado == 5)
+         System.out.println("Ganhou +1 DEF!");
+      } else if(dado == 5) {
          setDef(def + 2);
-      else {
+         System.out.println("Ganhou +2 DEF!");
+      } else {
          for (Enemy enemy : dest.getEnemies()) {
             enemy.takeDmg(1);
          }
+         System.out.println("Todos os inimigos no setor perderam 1 de DEF!");
       }
    }
 

@@ -1,25 +1,26 @@
 package board;
 
-
 import board.sector.*;
 import utils.*;
 
 public class Board {
     // Nosso tabuleiro 0 "porta fechada", 1 setor, 2 "porta aberta"
-    final private int [][] map = {
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-        {0, 1, 2, 1, 2, 1, 2, 1, 2, 1, 0},
-        {0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0},
-        {0, 1, 2, 1, 2, 1, 2, 1, 2, 1, 0}, 
-        {0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0},
-        {0, 1, 2, 1, 2, 1, 2, 1, 2, 1, 0},
-        {0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0},
-        {0, 1, 2, 1, 2, 1, 2, 1, 2, 1, 0},
-        {0, 2, 0, 2, 0, 2, 0, 2, 0, 2, 0},
-        {0, 1, 2, 1, 2, 1, 2, 1, 2, 1, 0},
-        {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+    final private int[][] map = {
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
+            { 0, 1, 2, 1, 0, 1, 2, 1, 2, 1, 0 },
+            { 0, 2, 0, 2, 0, 2, 0, 0, 0, 2, 0 },
+            { 0, 1, 0, 1, 2, 1, 2, 1, 0, 1, 0 },
+            { 0, 2, 0, 0, 0, 2, 0, 2, 0, 2, 0 },
+            { 0, 1, 2, 1, 2, 1, 2, 1, 2, 1, 0 },
+            { 0, 0, 0, 2, 0, 2, 0, 0, 0, 2, 0 },
+            { 0, 1, 2, 1, 0, 1, 2, 1, 2, 1, 0 },
+            { 0, 2, 0, 2, 0, 2, 0, 2, 0, 0, 0 },
+            { 0, 1, 2, 1, 2, 1, 0, 1, 2, 1, 0 },
+            { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
     };
+
     private Sector[][] sectors;
+
     // Construtor
     public Board() {
         sectors = gerarSetores();
@@ -29,48 +30,45 @@ public class Board {
         Sector[][] sectors = new Sector[5][5];
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                Position pos = new Position(i+1, j+1);
+                Position pos = new Position(i + 1, j + 1);
                 boolean n, s, l, o;
                 n = hasDoor(pos, Direction.UP);
                 s = hasDoor(pos, Direction.DOWN);
                 l = hasDoor(pos, Direction.RIGHT);
                 o = hasDoor(pos, Direction.LEFT);
 
-                int num = Die.interval(0, 2);
-                switch (num) {
-                    case 0:
-                        sectors[i][j] = new NormalSector(pos,n,s,l,o);
-                        break;
-                    case 1:
-                        sectors[i][j] = new HiddenSector(pos,n,s,l,o);
-                        System.out.println(pos);
-                        break;
-                    case 2:
-                        sectors[i][j] = new PrivateSector(pos,n,s,l,o);
-                        break;
+                if (i == 2 & j == 2) {
+                    sectors[i][j] = new NormalSector(pos, n, s, l, o);
+                } else {
+                    int num = Die.interval(0, 2);
+                    switch (num) {
+                        case 0 -> sectors[i][j] = new NormalSector(pos, n, s, l, o);
+                        case 1 -> sectors[i][j] = new HiddenSector(pos, n, s, l, o);
+                        case 2 -> sectors[i][j] = new PrivateSector(pos, n, s, l, o);
+                    }
                 }
-            }   
+            }
         }
         int infecRow, infecCol;
         do {
             infecRow = Die.interval(0, 4);
             infecCol = Die.interval(0, 4);
-        } while(infecRow == 2 && infecCol == 2);
+        } while (infecRow == 2 && infecCol == 2);
         sectors[infecRow][infecCol].infect();
 
         return sectors;
     }
 
     private boolean isOpen(int i, int j) {
-        if(map[i][j] == 2)
+        if (map[i][j] == 2)
             return true;
         return false;
     }
 
     // Metodos publicos
     public boolean hasDoor(Position pos, Direction dir) {
-        int x = 2*pos.getX() - 1;
-        int y = 2*pos.getY() - 1;
+        int x = 2 * pos.getX() - 1;
+        int y = 2 * pos.getY() - 1;
 
         switch (dir) {
             case UP:
@@ -85,7 +83,7 @@ public class Board {
             case LEFT:
                 y--;
                 break;
-        }        
+        }
 
         return isOpen(x, y);
     }

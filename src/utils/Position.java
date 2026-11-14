@@ -47,6 +47,16 @@ public class Position {
 	public String toString(){
         return "Pos: ("+getX()+","+getY()+")";
 	}
+	
+	@Override 
+	public boolean equals(Object o) {
+		if(o instanceof Position) {
+			Position aux = (Position)o;
+			if(this.x == aux.getX() && this.x == aux.getY())
+			return true;
+		}
+		return false;
+	}
 
 }
 
