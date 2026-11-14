@@ -26,18 +26,16 @@ public class GameApresentation {
     
     // Métodos de cabeçalho 
     public void printMenu(){
-        String linhaOut = "----------------------------\n";
-        linhaOut +=       "| 1 - Iniciar o jogo       |\n";
-        linhaOut +=       "| 2 - Sair                 |\n";
-        linhaOut +=       "----------------------------\n";
-        System.out.print(linhaOut);
+        System.out.print (  "----------------------------\n" +
+                            "| 1 - Iniciar o jogo       |\n" +
+                            "| 2 - Sair                 |\n" +
+                            "----------------------------\n" );
     }
 
     public void printTitle(){
-        String linhaOut = "----------------------------\n";
-        linhaOut +=       "|    Antivírus por um dia    |\n";
-        linhaOut +=       "----------------------------\n";
-        System.out.print(linhaOut);
+        System.out.print (  "----------------------------\n"+
+                            "|    Antivírus por um dia    |\n"+
+                            "----------------------------\n");
     }
     
     public void printBoard(Board board, Player P1, Player P2){
