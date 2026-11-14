@@ -51,10 +51,11 @@ public class GameApresentation {
                 + "----------------------------\n");
     }
 
-    public void printTitle() {
+    public void printTitle(int round) {
         System.out.print("----------------------------\n"
-                     + "|    Antivírus por um dia    |\n"
+                     + "|    Antivírus por um dia   |\n"
                      + "----------------------------\n");
+        System.out.println("\n============= Ciclo " + (round + 1) + " / 25 =============\n");
     }
 
     public void printTitleSector(Board board, Player P1, Player P2){
@@ -70,8 +71,7 @@ public class GameApresentation {
 
     public void printGame(Board board, Player P1, Player P2, int round) {
         System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
-        printTitle();
-        System.out.println("\n============== Ciclo " + (round + 1) + " / 25 ==============");
+        printTitle(round);
         this.updateTemplateBoard(board, P1, P2);
         char[][] sectors = updateTemplateSector(P1, P2, board);
 

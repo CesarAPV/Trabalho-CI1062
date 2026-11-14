@@ -49,11 +49,8 @@ public class Game {
                 movePlayer(player);
                 if(someoneFoundInfection())
                     return 0;
-
-                this.gameOut.printGame(this.board,this.players[0],this.players[1], round);
             }
             actionPlayer(player);
-            this.gameOut.printGame(this.board,this.players[0],this.players[1], round);
             actionPlayer(player);
         }
 
@@ -128,6 +125,8 @@ public class Game {
             }
             validAction = true;
         }
+        this.gameOut.printGame(this.board,this.players[0],this.players[1], round);
+
     }
 
     private void actionPlayer(Player player) {
@@ -190,7 +189,7 @@ public class Game {
                 default -> System.out.println("Tecla invalida!");
             }
         }
-
+        this.gameOut.printGame(this.board,this.players[0],this.players[1], round);
     }
 
     private void runInimigo(Player player) {
