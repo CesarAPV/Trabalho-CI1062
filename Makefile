@@ -1,5 +1,6 @@
 all:
-	@javac --release 25 -d bin $(shell find src -name "*.java")
+	mkdir -p bin
+	javac -d bin $(shell find src -name "*.java")
 run: all
 	java -cp bin Main
 clean:
