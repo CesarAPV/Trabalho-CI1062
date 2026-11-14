@@ -141,7 +141,6 @@ public class GameApresentation {
 
         this.templateBoard[i_TB][j_TB] = ' ';
         this.templateBoard[i_TB][j_TB + 1] = ' ';
-
         if (!positions[0].equals(positions[1])) {
             /* Está correto essa algebra ? */
             i_TB = 2 * positions[1].getX() ;
@@ -149,6 +148,8 @@ public class GameApresentation {
             this.templateBoard[i_TB][j_TB] = ' ';
             this.templateBoard[i_TB][j_TB + 1] = ' ';
         }
+        this.templateBoard[6][14] = 'C';
+
     }
 
     private char[][] updateTemplateSector (Player P1, Player P2, Board board) {
