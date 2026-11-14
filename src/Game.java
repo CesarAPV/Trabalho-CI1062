@@ -35,21 +35,16 @@ public class Game {
      * e depois a rodada dos inimigos.
      */
     public int runRound() {
-        System.out.println("\n============== Ciclo " + (round + 1) + " / 25 ==============");
-
-        this.gameOut.printGame(this.board,this.players[0],this.players[1]);
+        this.gameOut.printGame(this.board,this.players[0],this.players[1], round);
     
         for (Player player : players) {
             if(someoneFoundInfection()) break;
             runPlayer(player);
+            this.gameOut.printGame(this.board,this.players[0],this.players[1], round);
             if(someoneFoundInfection()) break;
             runPlayer(player);
+            this.gameOut.printGame(this.board,this.players[0],this.players[1], round);
         }
-
-        System.out.printf("\n\n======Estatisticas da rodada======\n\n");
-        System.out.println("\n====Players antes do ataque inimigo====\n");
-        System.out.println("Player 1 " + players[0].toString());
-        System.out.println("Player 2 " + players[1].toString());
 
         if(!someoneFoundInfection()) {
             for (Player player : players) {
@@ -57,12 +52,6 @@ public class Game {
                     runInimigo(player);
             }
         }
-
-        System.out.println("\n====Players depois do ataque inimigo====\n");
-        System.out.println("Player 1 " + players[0]);
-        System.out.println("Player 2 " + players[1]);
-
-        System.out.printf("\n\n======Fim da rodada======\n\n");
         this.round++;
         return 0;
     }
