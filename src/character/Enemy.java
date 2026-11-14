@@ -10,8 +10,7 @@ public class Enemy extends Character {
    }
 
    public Enemy(Position pos) {
-      int atributos = Die.interval(1, 3);
-      this(pos.getX(), pos.getY(), atributos);
+      this(pos.getX(), pos.getY(), Die.interval(1, 3));
    }
 
    @Override
