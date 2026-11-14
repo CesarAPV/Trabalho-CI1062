@@ -1,7 +1,5 @@
 import java.util.Scanner;
 
-import javax.print.DocFlavor.STRING;
-
 import board.Board;
 import board.sector.*;
 import character.Player;
@@ -26,9 +24,8 @@ public class Game {
         this.players[0] = new SimplePlayer();
         if (numPlayers > 1)
             this.players[1] = new SupportPlayer();
-
         this.round = 0;
-        this.gameOut = new GameApresentation();
+        this.gameOut = new GameApresentation(board.getInfectionPosition());
         this.scanner = new Scanner(System.in);
     }
 

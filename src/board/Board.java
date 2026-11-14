@@ -20,14 +20,14 @@ public class Board {
     };
 
     private Sector[][] sectors;
-    private Position infectPosition;
+    private Position infectedPosition;
 
     // Construtor
     public Board() {
-        sectors = gerarSetores();
+        sectors = genSectors();
     }
 
-    private Sector[][] gerarSetores() {
+    private Sector[][] genSectors() {
         Sector[][] sectors = new Sector[5][5];
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
@@ -50,16 +50,14 @@ public class Board {
                 }
             }
         }
+
+        // Define a posição da infecção
         int infecRow, infecCol;
         do {
             infecRow = Die.interval(0, 4);
             infecCol = Die.interval(0, 4);
         } while (infecRow == 2 && infecCol == 2);
-        sectors[infecRow][infecCol].infect();
-        
-        /* Pode fazer aqui, mesmo sendo um contrutor privado para gerar os setores ? */
-        Position infectPos = new Position(infecRow+1, infecCol+1);
-        this.infectPosition = infectPos;
+        this.infectedPosition = new Position(infecRow+1, infecCol+1);
         
         return sectors;
     }
@@ -98,5 +96,9 @@ public class Board {
         row = pos.getX() - 1;
         col = pos.getY() - 1;
         return this.sectors[row][col];
+    }
+
+    public Position getInfectionPosition() {
+        return this.infectedPosition;
     }
 }

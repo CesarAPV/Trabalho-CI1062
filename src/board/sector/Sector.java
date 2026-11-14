@@ -5,13 +5,11 @@ import java.util.Iterator;
 
 import utils.*;
 import character.Enemy;
-import java.nio.file.DirectoryIteratorException;
 
 public abstract class Sector{
     // Atributos
     protected Position pos;
     protected boolean visited;
-    protected boolean infected;
     protected Boolean[] doors = new Boolean[4]; 
     protected ArrayList<Enemy> enemies;
 
@@ -19,7 +17,6 @@ public abstract class Sector{
     public Sector(Position pos, boolean n, boolean s, boolean l, boolean o) {
         this.pos = pos;
         visited = false;
-        infected = false;
         enemies = new ArrayList<Enemy>();
         doors[Direction.UP.ordinal()]    = n; // top door
         doors[Direction.RIGHT.ordinal()] = l; // right door
@@ -28,7 +25,6 @@ public abstract class Sector{
     }
 
     // Metodos get
-    public boolean isInfected() { return infected; }
     public boolean isVisited() { return visited; }
     public Position getPos() { return pos; }
     public Boolean[] getDoors() { return doors; }
@@ -42,11 +38,6 @@ public abstract class Sector{
     // Metodos set
     public void setVisited(boolean visited) {
         this.visited = visited;
-    }
-
-    public void infect() {
-        this.infected = true;
-        System.out.println("Setor " + getPos() + " Infectado");
     }
 
     // Outros metodos
