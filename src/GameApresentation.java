@@ -52,7 +52,7 @@ public class GameApresentation {
             System.out.print("1");
         else
             System.out.print("2");
-        System.out.print(               "                   \n");
+        System.out.print(               "                  -\n");
         System.out.print("-    'w'    |        'up'        -\n");
         System.out.print("- 'a''s''d' | 'left''down''right'-\n");
         System.out.print("----------------------------------\n");
@@ -60,8 +60,8 @@ public class GameApresentation {
 
     public void printMenuAction() {
         System.out.print("-----------------------------------\n");
-        System.out.print("- atk  (1,2,3) | procurar(p)      -\n");
-        System.out.print("- curar  (4,5) | passar(0)        -\n");
+        System.out.print("- atk  (1,2,3) | procurar (p)     -\n");
+        System.out.print("- curar  (4,5) | passar   (0)     -\n");
         System.out.print("-----------------------------------\n");
     }
 
