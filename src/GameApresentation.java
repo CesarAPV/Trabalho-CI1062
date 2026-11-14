@@ -69,7 +69,7 @@ public class GameApresentation {
     }
 
     public void printGame(Board board, Player P1, Player P2, int round) {
-        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\")
+        System.out.print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
         printTitle();
         System.out.println("\n============== Ciclo " + (round + 1) + " / 25 ==============");
         this.updateTemplateBoard(board, P1, P2);
