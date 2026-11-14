@@ -45,9 +45,15 @@ public abstract class Character implements Attacker {
       target.takeDmg(atk);
    }
 
-   @Override 
-   public String toString(){
-      return "Life: ("+atk+","+def+") "+pos;
-   }
+   // Estava em Protótipo, não sei onde era utilizada por isso não a paguei 
+   // @Override 
+   // public String toString(){
+   //    return "Life: ("+atk+","+def+") "+pos;
+   // }
 
+   @Override
+   public String toString() {
+      String character = this.getAtk() + "/" + this.getDef();
+      return character;
+   }
 }

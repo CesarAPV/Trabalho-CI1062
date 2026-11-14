@@ -88,10 +88,10 @@ public class Board {
         return isOpen(x, y);
     }
 
-    public Sector getSetor(Position pos) {
+    public Sector getSector(Position pos) {
         int row, col;
         row = pos.getX() - 1;
         col = pos.getY() - 1;
-        return sectors[row][col];
+        return this.sectors[row][col];
     }
 }

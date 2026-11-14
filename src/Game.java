@@ -1,12 +1,13 @@
-import board.Board;
-import board.sector.Sector;
-import character.Enemy;
-import character.Player;
-import character.SimplePlayer;
-import character.SupportPlayer;
 import java.util.Scanner;
-import utils.Direction;
-import utils.Position;
+
+import javax.print.DocFlavor.STRING;
+
+import board.Board;
+import character.Jogador;
+import character.JogadorSimples;
+import character.JogadorSuporte;
+import character.Inimigo;
+import utils.Posicao;
 
 public class Game {
     private Board board;

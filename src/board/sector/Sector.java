@@ -5,6 +5,7 @@ import java.util.Iterator;
 
 import utils.*;
 import character.Enemy;
+import java.nio.file.DirectoryIteratorException;
 
 public abstract class Sector{
     // Atributos
@@ -27,6 +28,7 @@ public abstract class Sector{
     }
 
     // Metodos get
+    public boolean isInfected() { return infected; }
     public boolean isVisited() { return visited; }
     public Position getPos() { return pos; }
     public Boolean[] getDoors() { return doors; }
