@@ -38,7 +38,7 @@ public class Board {
                 l = hasDoor(pos, Direction.RIGHT);
                 o = hasDoor(pos, Direction.LEFT);
 
-                if (i == 2 & j == 2) {
+                if (i == 2 && j == 2) {
                     sectors[i][j] = new NormalSector(pos, n, s, l, o);
                 } else {
                     int num = Die.interval(0, 2);

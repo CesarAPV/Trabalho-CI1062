@@ -52,8 +52,8 @@ public class Position {
 	public boolean equals(Object o) {
 		if(o instanceof Position) {
 			Position aux = (Position)o;
-			if(this.x == aux.getX() && this.x == aux.getY())
-			return true;
+			if(this.x == aux.getX() && this.y == aux.getY())
+				return true;
 		}
 		return false;
 	}

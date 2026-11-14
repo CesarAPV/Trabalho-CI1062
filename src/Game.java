@@ -23,7 +23,8 @@ public class Game {
         this.players = new Player[numPlayers];
         this.players[0] = new SimplePlayer();
         if (numPlayers > 1)
-            this.players[1] = new SupportPlayer();
+            this.players[1] = new SupportPlayer((SimplePlayer)players[0]);
+
         this.round = 0;
         this.gameOut = new GameApresentation(board.getInfectionPosition());
         this.scanner = new Scanner(System.in);
@@ -39,22 +40,30 @@ public class Game {
         this.gameOut.printGame(this.board,this.players[0],this.players[1]);
     
         for (Player player : players) {
+            if(someoneFoundInfection()) break;
             runPlayer(player);
+            if(someoneFoundInfection()) break;
             runPlayer(player);
         }
 
         System.out.printf("\n\n======Estatisticas da rodada======\n\n");
-        System.out.println("Player 1 Life: (" + players[0].toString() +
-                ") Pos: (" + players[0].getPos().toString() + ")");
-        System.out.println("Player 2 Life: (" + players[1].toString() +
-                ") Pos: (" + players[1].getPos().toString() + ")");
+        System.out.println("\n====Players antes do ataque inimigo====\n");
+        System.out.println("Player 1 " + players[0]);
+        System.out.println("Player 2 " + players[1]);
 
-        for (Player player : players) {
-            runInimigo(player);
+        if(!someoneFoundInfection()) {
+            for (Player player : players) {
+                if(player.isAlive()) 
+                    runInimigo(player);
+            }
         }
+
+        System.out.println("\n====Players depois do ataque inimigo====\n");
+        System.out.println("Player 1 " + players[0]);
+        System.out.println("Player 2 " + players[1]);
+
         System.out.printf("\n\n======Fim da rodada======\n\n");
         this.round++;
-
         return 0;
     }
 
@@ -68,8 +77,8 @@ public class Game {
                 return true;
             }
         }
-        if(!players[0].isAlive() || (!players[0].isAlive() && !players[1].isAlive())) {
-            System.out.println("\nDerrota!!! Os jogadores foram eliminados pelos virus!");
+        if(!players[0].isAlive() && (!players[1].isAlive())) {
+            System.out.println("\nDerrota!!! Os jogadores foram eliminados pelo virus!");
             return true;
         }
         if(round >= 25) {
@@ -80,81 +89,96 @@ public class Game {
     }
 
     private void runPlayer(Player player) {
-        if (!player.isAlive())
+        if (!player.isAlive() || board.getSetor(player.getPos()).isInfected())
             return;
 
-        char input;
-        do {
-            input = scanner.next().charAt(0);
-        } while (input != 'w' && input != 'a' && input != 's' &&
-                input != 'd' && input != '1' && input != '2' && input != '3' &&
-                input != 'p' && input != '4' && input != '5');
+        boolean validAction = false;
 
-        Position pos = player.getPos();
-        Sector sector = board.getSector(pos);
+        while (!validAction) {
+            System.out.println("Digite sua acao (w/a/s/d = mover, 1/2/3 = atacar, p = procurar, 4/5 = curar):");
+            char input = scanner.next().toLowerCase().charAt(0);
 
-        switch (input) {
-            case 'w', 'a', 's', 'd' -> {
-                if (!sector.hasEnemiesAlive()) {
-                    if (input == 'w' && sector.getDoor(Direction.UP)) {
-                        player.move(board.getSector(pos.shift(Direction.UP)));
-                    } else if (input == 'a' && sector.getDoor(Direction.LEFT)) {
-                        player.move(board.getSector(pos.shift(Direction.LEFT)));
-                    } else if (input == 's' && sector.getDoor(Direction.DOWN)) {
-                        player.move(board.getSector(pos.shift(Direction.DOWN)));
-                    } else if (input == 'd' && sector.getDoor(Direction.RIGHT)) {
-                        player.move(board.getSector(pos.shift(Direction.RIGHT)));
+            Position pos = player.getPos();
+            Sector sector = board.getSetor(pos);
+            
+            switch (input) {
+                case 'w', 'a', 's', 'd' -> {
+                    if(sector.hasEnemiesAlive()) {
+                        System.out.println("Tem inimigos vivos! Elimine-os para se mover.");
+                        break;
                     }
 
-                    sector = board.getSector(player.getPos());
-                    /* Por quê dessa verificação aqui ? */
-                    if(sector.isInfected()) {
-                        
+                    Direction dir;   
+                    switch(input) {
+                        case 'w' -> dir = Direction.UP;
+                        case 'a' -> dir = Direction.LEFT;
+                        case 'd' -> dir = Direction.RIGHT;
+                        default  -> dir = Direction.DOWN;
                     }
 
-                    if (!sector.isVisited()) {
+                    if(!sector.getDoor(dir)) {
+                        System.out.println("Movimento Invalido! Ha uma parede nessa direcao");
+                        break;
+                    }
+
+                    player.move(board.getSetor(pos.shift(dir)));
+                    sector = board.getSetor(player.getPos());
+
+                    if(!sector.isVisited()) {
                         sector.setVisited(true);
-                        sector.genEnemies();
+                        if(!sector.isInfected()) {
+                            sector.genEnemies();
+                        }
                     }
+                    validAction = true;
                 }
-                else {
-                    System.out.println("Tem inimigos vivos");
-                }
-            }
-            case '1', '2', '3' -> {
-                if (sector.canAttack()) {
-                    Enemy enemies[] = sector.getEnemies();
-                    int tamanho = enemies.length;
-                    if (input == '1' && tamanho >= 1)
-                        player.attack(enemies[0]);
-                    else if (input == '2' && tamanho >= 2)
-                        player.attack(enemies[1]);
-                    else if (input == '3' && tamanho == 3)
-                        player.attack(enemies[2]);
+                case '1', '2', '3' -> {
+                    Enemy[] enemies = sector.getEnemies();
+                    int index = input - '1'; // '1' -> 0, '2' -> 1, '3' -> 2
+                    if(index >= enemies.length || !enemies[index].isAlive()) {
+                        System.out.println("Esse inimigo nao existe! Escolha outro");
+                        break;
+                    }
 
-                    sector.hasEnemiesAlive(); /* Donada aqui ? */
-                } else {
-                    System.out.println("Setor Escondido");
-                }
-            }
-            case 'p' -> {
-                if (sector.canSearch()) {
-                    player.search(sector);
-                } else {
-                    System.out.println("Setor Privado");
-                }
-            }
-            case '4', '5' -> {
-                if (player instanceof SupportPlayer) {
-                    if (input == '4' && (players[0].getPos().equals(players[1].getPos()))) {
-                        ((SupportPlayer) player).heal(players[0]);
+                    if(sector.canAttack()) {
+                        player.attack(enemies[index]);
+                        sector.hasEnemiesAlive(); // limpa inimigos mortos
                     } else {
-                        ((SupportPlayer) player).heal(player);
+                        System.out.println("Setor oculto!");
+                    }
+                    validAction = true;
+                }
+                case '4', '5' -> {
+                    if(!(player instanceof SupportPlayer)) {
+                        System.out.println("Apenas o jogador de suporte pode curar!");
+                        break;
+                    }
+
+                    SupportPlayer sup = (SupportPlayer)player;
+                    if (input == '4') {
+                        if(players[0].getPos().equals(players[1].getPos())) {
+                            sup.heal(players[0]);
+                            validAction = true;
+                        } else {
+                            System.err.println("P1 nao esta no mesmo setor que P2");
+                        }
+                    } else {
+                        sup.heal(player);
+                        validAction = true;
                     }
                 }
+                case 'p' -> {
+                    if(sector.canSearch()) {
+                        player.search(sector);
+                        sector.hasEnemiesAlive(); // se tirou 6 e matou algum inimigo
+                        validAction = true;
+                    } else {
+                        System.out.println("Setor privado, nao eh permitido procurar aqui!");   
+                    }
+                }
+                default -> System.out.println("Tecla invalida!");
             }
         }
-
     }
 
     private void runInimigo(Player player) {
@@ -163,11 +187,18 @@ public class Game {
 
         if (sector.hasEnemiesAlive()) {
             System.out.printf("\n");
-
             for (Enemy enemy : sector.getEnemies()) {
                 enemy.attack(player);
-                //System.out.println("Inimigo " + enemy);
             }
         }
+    }
+
+    private boolean someoneFoundInfection() {
+        for (Player player : players) {
+            if(player.isAlive() && board.getSector(player.getPos()).isInfected()) {
+                return true;
+            }
+        }
+        return false;
     }
 }
