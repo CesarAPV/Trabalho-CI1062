@@ -35,7 +35,7 @@ public class Game {
      * e depois a rodada dos inimigos.
      */
     public int runRound() {
-        this.gameOut.printGame(this.board,this.players[0],this.players[1], round);
+        // this.gameOut.printGame(this.board,this.players[0],this.players[1], round);
 
         for(int i = 0; i < numPlayers; i++) {
             this.gameOut.printGame(this.board,this.players[0],this.players[1], round);
@@ -51,6 +51,7 @@ public class Game {
                     return 0;
             }
             actionPlayer(player);
+            this.gameOut.printGame(this.board,this.players[0],this.players[1], round);
             actionPlayer(player);
         }
 
@@ -189,7 +190,7 @@ public class Game {
                 default -> System.out.println("Tecla invalida!");
             }
         }
-        this.gameOut.printGame(this.board,this.players[0],this.players[1], round);
+        // this.gameOut.printGame(this.board,this.players[0],this.players[1], round);
     }
 
     private void runInimigo(Player player) {
