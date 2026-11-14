@@ -46,9 +46,9 @@ public class GameApresentation {
     }
 
     public void printTitle() {
-        System.out.print("----------------------------\n"
-                + "|    Antivírus por um dia    |\n"
-                + "----------------------------\n");
+        System.out.print(   "----------------------------\n"+
+                            "|    Antivírus por um dia    |\n"+
+                            "----------------------------\n");
     }
 
     public void printBoard(Board board, Player P1, Player P2) {
@@ -56,7 +56,7 @@ public class GameApresentation {
         this.updateTemplateBoard(board, P1, P2);
         for (int i = 0; i < 11; i++) {
             for (int j = 0; j < 25; j++) {
-                System.out.print(templateBoard[i][j]);
+                System.out.print(templateBoard[i]);
             }
             System.out.println();
         }
@@ -119,72 +119,94 @@ public class GameApresentation {
         }
     }
 
-    private char[][] updateSector(Player P1, Player P2, Board board) {
+    private char[][] naosei (Player P1, Player P2, Board board) {
         if (P1.getPos().equals(P2.getPos())) {
-            return SectorOutput(P1, P2, board, templateSector); 
-        }else {
-            char[][] sector1 = SectorOutput(P1, null, board, templateSector);
-            char[][] sector2 = SectorOutput(P2, null, board, templateSector);
-
+            sectorUpdate(P1, P2, board); 
+            return this.templateSector;
+        } else {
+            sectorUpdate(P1, null, board);
+        
             char[][] sectors = new char[7][33];
-            for (int i = 0; i < 7; i++) {
-                for (int j = 0; j < 15; j++) {
-                    sectors[i][j] = sector1[i][j];
-                    sectors[i][j + 18] = sector2[i][j];
-                }
-            }
+            
+            for (int i = 0; i < 7; i++)
+                for (int j = 0; j < 15; j++)
+                    sectors[i][j] = this.templateSector[i][j];
+                    //sectors[i][j + 18] = sector2[i][j];
+            
+            sectorClear();
+            sectorUpdate(null, P2, board);
+            for (int i = 0; i < 7; i++)
+                for (int j = 0; j < 15; j++)
+                    sectors[i][j + 18] = this.templateSector[i][j];
+
             for (int i = 0; i < 7; i++) {
                 sectors[i][15] = ' ';
                 sectors[i][16] = ' ';
                 sectors[i][17] = ' ';
             }
-
             return sectors;
+        }
+
+    }
+
+    private void sectorClear(){
+        this.templateSector[0][7] = '-';
+        this.templateSector[3][14] = '|';
+        this.templateSector[3][0] = '|';
+        this.templateSector[6][7] = '-';
+
+        for(int j=2; j<14; j++){
+            this.templateSector[1][j] = ' ';
+            this.templateSector[4][j] = ' ';
+            this.templateSector[5][j] = ' ';
         }
     }
 
-    private char[][] SectorOutput(Player P1, Player P2, Board board, char[][] template) {
-        Sector setor = board.getSector(P1.getPos());
+    private void sectorUpdate(Player P1, Player P2, Board board) {
+        Sector setor;
+        if(P1 != null)
+            setor = board.getSector(P1.getPos());
+        else 
+            setor = board.getSector(P2.getPos());
+
         Boolean[] doors = setor.getDoors();
         Enemy[] enemies = setor.getEnemies();
         int col = 2;
         for (Enemy e : enemies) {
-            template[1][col] = e.toString().charAt(0);
-            template[1][col + 1] = e.toString().charAt(1);
-            template[1][col + 2] = e.toString().charAt(2);
+            this.templateSector[1][col] = e.toString().charAt(0);
+            this.templateSector[1][col + 1] = e.toString().charAt(1);
+            this.templateSector[1][col + 2] = e.toString().charAt(2);
             col += 4;
         }
 
         if (doors[Direction.UP.ordinal()])
-            template[0][7] = '*';
+            this.templateSector[0][7] = '*';
         if (doors[Direction.RIGHT.ordinal()])
-            template[3][14] = '*';
+            this.templateSector[3][14] = '*';
         if (doors[Direction.LEFT.ordinal()]) 
-            template[3][0] = '*';
+            this.templateSector[3][0] = '*';
         if (doors[Direction.DOWN.ordinal()]) 
-            template[6][7] = '*';
+            this.templateSector[6][7] = '*';
 
         if(P1 != null){
-            template[4][3] = 'P';
-            template[4][4] = '1';
+            this.templateSector[4][3] = 'P';
+            this.templateSector[4][4] = '1';
             for (int i = 0; i < 3; i++)
-                template[5][3 + i] = P1.toString().charAt(i);
+                this.templateSector[5][3 + i] = P1.toString().charAt(i);
         } else {
-            template[4][3] = 'P';
-            template[4][4] = '2';
+            this.templateSector[4][3] = 'P';
+            this.templateSector[4][4] = '2';
             for (int i = 0; i < 3; i++)
-                template[5][3 + i] = P2.toString().charAt(i);
-            return template;
+                this.templateSector[5][3 + i] = P2.toString().charAt(i);
+            return;
         }
 
         if(P2 != null ){
-            template[4][9] = 'P';
-            template[4][10] = '2';
+            this.templateSector[4][9] = 'P';
+            this.templateSector[4][10] = '2';
             for (int i = 0; i < 3; i++) {
-                template[5][9 + i] = P2.toString().charAt(i);
+                this.templateSector[5][9 + i] = P2.toString().charAt(i);
             }
         }
-
-        return template;
     }
 }
