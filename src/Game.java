@@ -21,7 +21,7 @@ public class Game {
     public Game() {
         this.gameOut = new GameApresentation();
         this.board = new Board();
-        board.getSetor(new Position(3, 3)).setVisited(true);
+        board.getSector(new Position(3, 3)).setVisited(true);
         this.numPlayers = 2;
         this.players = new Player[numPlayers];
         this.players[0] = new SimplePlayer();
@@ -63,7 +63,7 @@ public class Game {
 
     public boolean isGameOver() {
         for(int i = 0; i < numPlayers; i++) {
-            if(players[i].isAlive() && board.getSetor(players[i].getPos()).isInfected()) {
+            if(players[i].isAlive() && board.getSector(players[i].getPos()).isInfected()) {
                 System.out.println("\nVitoria!!! O jogador P"+ (i+1) + " encontrou a fonte da infeccao (X)!");
                 return true;
             }
@@ -91,22 +91,22 @@ public class Game {
                 input != 'p' && input != '4' && input != '5');
 
         Position pos = player.getPos();
-        Sector sector = board.getSetor(pos);
+        Sector sector = board.getSector(pos);
 
         switch (input) {
             case 'w', 'a', 's', 'd' -> {
                 if (!sector.hasEnemiesAlive()) {
                     if (input == 'w' && sector.getDoor(Direction.UP)) {
-                        player.move(board.getSetor(pos.shift(Direction.UP)));
+                        player.move(board.getSector(pos.shift(Direction.UP)));
                     } else if (input == 'a' && sector.getDoor(Direction.LEFT)) {
-                        player.move(board.getSetor(pos.shift(Direction.LEFT)));
+                        player.move(board.getSector(pos.shift(Direction.LEFT)));
                     } else if (input == 's' && sector.getDoor(Direction.DOWN)) {
-                        player.move(board.getSetor(pos.shift(Direction.DOWN)));
+                        player.move(board.getSector(pos.shift(Direction.DOWN)));
                     } else if (input == 'd' && sector.getDoor(Direction.RIGHT)) {
-                        player.move(board.getSetor(pos.shift(Direction.RIGHT)));
+                        player.move(board.getSector(pos.shift(Direction.RIGHT)));
                     }
 
-                    sector = board.getSetor(player.getPos());
+                    sector = board.getSector(player.getPos());
                     if(sector.isInfected()) {
                         
                     }
@@ -158,7 +158,7 @@ public class Game {
 
     private void runInimigo(Player player) {
         Position pos = player.getPos();
-        Sector sector = board.getSetor(pos);
+        Sector sector = board.getSector(pos);
 
         if (sector.hasEnemiesAlive()) {
             System.out.printf("\n");
