@@ -89,7 +89,7 @@ public class Game {
     }
 
     private void runPlayer(Player player) {
-        if (!player.isAlive() || board.getSetor(player.getPos()).isInfected())
+        if (!player.isAlive() || board.getInfectionPosition().equals(player.getPos()))
             return;
 
         boolean validAction = false;
@@ -99,7 +99,7 @@ public class Game {
             char input = scanner.next().toLowerCase().charAt(0);
 
             Position pos = player.getPos();
-            Sector sector = board.getSetor(pos);
+            Sector sector = board.getSector(pos);
             
             switch (input) {
                 case 'w', 'a', 's', 'd' -> {
@@ -121,8 +121,8 @@ public class Game {
                         break;
                     }
 
-                    player.move(board.getSetor(pos.shift(dir)));
-                    sector = board.getSetor(player.getPos());
+                    player.move(board.getSector(pos.shift(dir)));
+                    sector = board.getSector(player.getPos());
 
                     if(!sector.isVisited()) {
                         sector.setVisited(true);
