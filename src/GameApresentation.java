@@ -122,22 +122,22 @@ public class GameApresentation {
         }
 
         // Se estão no mesmo lugar corrige os números
-        if (positions[1].equals(positions[2])) {
+        if (positions[0].equals(positions[1])) {
             this.templateBoard[i_TB][j_TB + 1] = ' ';
         }
     }
 
     private void clearTemplateBoard(Player P1, Player P2) {
         Position[] positions = {P1.getPos(), P2.getPos()};
-        int i_TB = 2 * infecPosition.getX();
-        int j_TB = 4 * infecPosition.getY() + 2;
+        int i_TB = 2 * positions[0].getX();
+        int j_TB = 4 * positions[0].getY() + 2;
 
         this.templateBoard[i_TB][j_TB] = ' ';
         this.templateBoard[i_TB][j_TB + 1] = ' ';
 
-        if (!positions[1].equals(positions[2])) {
-            i_TB = 2 * positions[2].getX() - 1;
-            j_TB = 4 * positions[2].getY() - 2;
+        if (!positions[0].equals(positions[1])) {
+            i_TB = 2 * positions[1].getX() - 1;
+            j_TB = 4 * positions[1].getY() - 2;
             this.templateBoard[i_TB][j_TB] = ' ';
             this.templateBoard[i_TB][j_TB + 1] = ' ';
         }
