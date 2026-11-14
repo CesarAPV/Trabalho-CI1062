@@ -94,7 +94,7 @@ public class GameApresentation {
         Position[] positions = {P1.getPos(), P2.getPos()};
         Sector[] sectors = {board.getSector(positions[0]), board.getSector(positions[1])};
         Boolean[] doors = new Boolean[4];
-        int i_TB, j_TB;
+        int i_TB = 0, j_TB = 0;
 
         // Atualiza as portas que devem ser mostradas
         for (int i = 0; i < 2; i++) {
