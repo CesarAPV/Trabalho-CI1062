@@ -47,7 +47,7 @@ public class GameApresentation {
     // Métodos de cabeçalho 
     public void printMenuMove(Player player) {
         System.out.print("----------------------------------\n");
-        System.out.print("| Action P");
+        System.out.print("| Action P ");
         if (player instanceof SimplePlayer)
             System.out.print("1");
         else
@@ -95,7 +95,7 @@ public class GameApresentation {
         System.out.println(this.templateBoard[3]);
         for(int i = 4; i < 11; i++)
             System.out.println(new String(this.templateBoard[i]) + "\t" + new String(sectors[i - 4]));
-         System.out.println(this.templateBoard[11]);
+         System.out.println(this.templateBoard[11]+"\n");
 
         this.clearTemplateSector();
         this.clearTemplateBoard(P1, P2);
