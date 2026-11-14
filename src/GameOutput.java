@@ -6,12 +6,12 @@ import character.Player;
 import character.SimplePlayer;
 import utils.*;
 
-public class GameApresentation {
+public class GameOutput {
 
     private char[][] templateBoard;
     private char[][] templateSector;
 
-    public GameApresentation(Position infecPosition) {
+    public GameOutput(Position infecPosition) {
 
         this.templateBoard = new char[][]{
             {' ', ' ', ' ', ' ', ' ', ' ', '1', ' ', ' ', ' ', '2', ' ', ' ', ' ', '3', ' ', ' ', ' ', '4', ' ', ' ', ' ', '5', ' ', ' '},
@@ -119,18 +119,14 @@ public class GameApresentation {
             i_TB = 2 * positions[i].getX();
             j_TB = 4 * positions[i].getY() + 2;
 
-            if (doors[Direction.UP.ordinal()]) {
+            if (doors[Direction.UP.ordinal()])
                 this.templateBoard[i_TB - 1][j_TB] = '*';
-            }
-            if (doors[Direction.DOWN.ordinal()]) {
+            if (doors[Direction.DOWN.ordinal()])
                 this.templateBoard[i_TB + 1][j_TB] = '*';
-            }
-            if (doors[Direction.LEFT.ordinal()]) {
+            if (doors[Direction.LEFT.ordinal()])
                 this.templateBoard[i_TB][j_TB - 2] = '*';
-            }
-            if (doors[Direction.RIGHT.ordinal()]) {
+            if (doors[Direction.RIGHT.ordinal()])
                 this.templateBoard[i_TB][j_TB + 2] = '*';
-            }
 
             // Atualiza o campo do template que representa os jogadores;
             if(!positions[i].equals(center)){
@@ -139,7 +135,6 @@ public class GameApresentation {
             }
             else
                 this.templateBoard[i_TB][j_TB] = 'C';
-
         }
 
         // Se estão no mesmo lugar corrige os números
