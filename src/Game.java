@@ -22,7 +22,7 @@ public class Game {
         this.players = new Player[numPlayers];
         this.players[0] = new SimplePlayer();
         if (numPlayers > 1)
-            this.players[1] = new SupportPlayer();
+            this.players[1] = new SupportPlayer((SimplePlayer)players[0]);
 
         this.round = 0;
         this.scanner = new Scanner(System.in);
@@ -41,19 +41,23 @@ public class Game {
         }
 
         System.out.printf("\n\n======Estatisticas da rodada======\n\n");
-        System.out.println("Player 1 Life: (" + players[0].getAtk() + "," + players[0].getDef() +
-                ") Pos: (" + players[0].getPos().getX() + ", " + players[0].getPos().getY() + ")");
+        System.out.println("\n====Players antes do ataque inimigo====\n");
+        System.out.println("Player 1 " + players[0]);
+        System.out.println("Player 2 " + players[1]);
 
-        System.out.println("Player 2 Life: (" + players[1].getAtk() + "," + players[1].getDef() +
-                ") Pos: (" + players[1].getPos().getX() + ", " + players[1].getPos().getY() + ")");
-
-        for (Player player : players) {
-            runInimigo(player);
+        if(!isGameOver()) {
+            for (Player player : players) {
+                runInimigo(player);
+            }
         }
+
+        System.out.println("\n====Players depois do ataque inimigo====\n");
+        System.out.println("Player 1 " + players[0]);
+        System.out.println("Player 2 " + players[1]);
+
         System.out.printf("\n\n======Fim da rodada======\n\n");
 
         this.round++;
-
         return 0;
     }
 
@@ -64,7 +68,7 @@ public class Game {
                 return true;
             }
         }
-        if(!players[0].isAlive() || (!players[0].isAlive() && !players[1].isAlive())) {
+        if(!players[0].isAlive() && (!players[1].isAlive())) {
             System.out.println("\nDerrota!!! Os jogadores foram eliminados pelo virus!");
             return true;
         }
@@ -158,10 +162,8 @@ public class Game {
 
         if (sector.hasEnemiesAlive()) {
             System.out.printf("\n");
-
             for (Enemy enemy : sector.getEnemies()) {
                 enemy.attack(player);
-                //System.out.println("Inimigo " + enemy);
             }
         }
     }
