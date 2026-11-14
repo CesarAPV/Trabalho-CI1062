@@ -35,6 +35,8 @@ public class Game {
      */
     public int runRound() {
         System.out.println("\n============== Ciclo " + (round + 1) + " / 25 ==============");
+
+        this.gameOut.printGame(this.board,this.players[0],this.players[1]);
     
         for (Player player : players) {
             runPlayer(player);
@@ -42,31 +44,32 @@ public class Game {
         }
 
         System.out.printf("\n\n======Estatisticas da rodada======\n\n");
-        System.out.println("Player 1 Life: (" + players[0].getAtk() + "," + players[0].getDef() +
-                ") Pos: (" + players[0].getPos().getX() + ", " + players[0].getPos().getY() + ")");
-
-        System.out.println("Player 2 Life: (" + players[1].getAtk() + "," + players[1].getDef() +
-                ") Pos: (" + players[1].getPos().getX() + ", " + players[1].getPos().getY() + ")");
+        System.out.println("Player 1 Life: (" + players[0].toString() +
+                ") Pos: (" + players[0].getPos().toString() + ")");
+        System.out.println("Player 2 Life: (" + players[1].toString() +
+                ") Pos: (" + players[1].getPos().toString() + ")");
 
         for (Player player : players) {
             runInimigo(player);
         }
         System.out.printf("\n\n======Fim da rodada======\n\n");
-
         this.round++;
 
         return 0;
     }
 
     public boolean isGameOver() {
+        Position posSectorInfected = board.getInfectionPosition();
+
+        /* Verificar se esse equals está implementado */
         for(int i = 0; i < numPlayers; i++) {
-            if(players[i].isAlive() && board.getSector(players[i].getPos()).isInfected()) {
+            if(players[i].isAlive() && players[i].getPos().equals(posSectorInfected)) {
                 System.out.println("\nVitoria!!! O jogador P"+ (i+1) + " encontrou a fonte da infeccao (X)!");
                 return true;
             }
         }
         if(!players[0].isAlive() || (!players[0].isAlive() && !players[1].isAlive())) {
-            System.out.println("\nDerrota!!! Os jogadores foram eliminados pelo virus!");
+            System.out.println("\nDerrota!!! Os jogadores foram eliminados pelos virus!");
             return true;
         }
         if(round >= 25) {
@@ -104,6 +107,7 @@ public class Game {
                     }
 
                     sector = board.getSector(player.getPos());
+                    /* Por quê dessa verificação aqui ? */
                     if(sector.isInfected()) {
                         
                     }
@@ -128,7 +132,7 @@ public class Game {
                     else if (input == '3' && tamanho == 3)
                         player.attack(enemies[2]);
 
-                    sector.hasEnemiesAlive();
+                    sector.hasEnemiesAlive(); /* Donada aqui ? */
                 } else {
                     System.out.println("Setor Escondido");
                 }

@@ -11,7 +11,7 @@ public class GameApresentation {
     private char[][] templateSector;
 
     public GameApresentation(Position infecPosition) {
-        
+
         this.templateBoard = new char[][]{
             {' ', ' ', ' ', ' ', ' ', ' ', '1', ' ', ' ', ' ', '2', ' ', ' ', ' ', '3', ' ', ' ', ' ', '4', ' ', ' ', ' ', '5', ' ', ' '},
             {' ', ' ', ' ', ' ', '|', '-', '-', '-', '|', '-', '-', '-', '|', '-', '-', '-', '|', '-', '-', '-', '|', '-', '-', '-', '|'},
@@ -69,7 +69,8 @@ public class GameApresentation {
     }
 
     public void printGame(Board board, Player P1, Player P2) {
-
+        
+        printTitle();
         this.updateTemplateBoard(board, P1, P2);
         char[][] sectors = updateTemplateSector(P1, P2, board);
 
@@ -78,10 +79,10 @@ public class GameApresentation {
         System.out.print(this.templateBoard[2] + "\t"); this.printTitleSector(board, P1, P2);
         System.out.println(this.templateBoard[3]);
         for(int i = 4; i < 11; i++)
-            System.out.println(this.templateBoard[i] + "\t" + sector[i]);
+            System.out.println(this.templateBoard[i] + "\t" + sectors[i]);
          System.out.println(this.templateBoard[11]);
 
-        this.clearTemplateSector()
+        this.clearTemplateSector();
         this.clearTemplateBoard(P1, P2);
     }
 
@@ -98,8 +99,9 @@ public class GameApresentation {
         // Atualiza as portas que devem ser mostradas
         for (int i = 0; i < 2; i++) {
             doors = sectors[i].getDoors();
-            i_TB = 2 * infecPosition.getX();
-            j_TB = 4 * infecPosition.getY() + 2;
+            /* acho que tu confundiu com o position */
+            i_TB = 2 * positions[i].getX();
+            j_TB = 4 * positions[i].getY() + 2;
 
             if (doors[Direction.UP.ordinal()]) {
                 this.templateBoard[i_TB - 1][j_TB] = '*';
