@@ -3,11 +3,12 @@ import java.util.Scanner;
 import javax.print.DocFlavor.STRING;
 
 import board.Board;
-import character.Jogador;
-import character.JogadorSimples;
-import character.JogadorSuporte;
-import character.Inimigo;
-import utils.Posicao;
+import board.sector.*;
+import character.Player;
+import character.SimplePlayer;
+import character.SupportPlayer;
+import character.Enemy;
+import utils.*;
 
 public class Game {
     private Board board;
@@ -15,8 +16,10 @@ public class Game {
     private int numPlayers;
     private int round;
     private Scanner scanner;
+    private GameApresentation gameOut;
 
     public Game() {
+        this.gameOut = new GameApresentation();
         this.board = new Board();
         board.getSetor(new Position(3, 3)).setVisited(true);
         this.numPlayers = 2;
