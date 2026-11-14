@@ -78,31 +78,6 @@ public abstract class Sector{
         return true;
     }
 
-
-    @Override
-    public String toString(){
-        String sector = "";
-        sector += "|------"+ ((this.doors[Direction.UP.ordinal()])? "*" : "-") +"------|\n";
-        
-        sector += "| ";
-        for(int i = 0; i <= enemies.size(); i++)
-            sector += this.enemies.get(i).toString()+" ";
-        for (int i = enemies.size(); i < 4; i++)
-            sector += "    ";
-        sector += "|";
-
-        sector += "|             |\n";
-
-        sector += (this.doors[Direction.LEFT.ordinal()]? "*" : "|") + "             " + (this.doors[Direction.RIGHT.ordinal()] ? "*" : "|") + "\n";
-
-        sector += "|             |\n";
-        sector += "|             |\n";
-        
-        sector += "|------"+ ((this.doors[Direction.DOWN.ordinal()])? "*" : "-") +"------|\n";
-
-        return sector;
-    }
-
     public char[][] scheme(){
         char[][] scheme = new char[7][15];
 
