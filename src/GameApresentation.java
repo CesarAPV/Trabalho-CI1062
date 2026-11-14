@@ -70,7 +70,7 @@ public class GameApresentation {
                     this.printTitleSector(board, P1, P2);
                 System.out.println();
         }
-        this.undoUpdateTemplateBoard(board, P1, P2);
+        this.clearTemplateBoard(P1, P2);
     }
 
     /**
@@ -113,7 +113,7 @@ public class GameApresentation {
         }
     }
 
-    private void undoUpdateTemplateBoard(Board board, Player P1, Player P2) {
+    private void clearTemplateBoard(Player P1, Player P2) {
         Position[] positions = {P1.getPos(), P2.getPos()};
         int i_TB = 5 * (positions[1].getX() - 1) + 7;
         int j_TB = 2 * (positions[1].getY() - 1) + 3;
@@ -129,7 +129,7 @@ public class GameApresentation {
         }
     }
 
-    private char[][] naosei (Player P1, Player P2, Board board) {
+    private char[][] updateTemplateSector (Player P1, Player P2, Board board) {
         if (P1.getPos().equals(P2.getPos())) {
             sectorUpdate(P1, P2, board); 
             return this.templateSector;
@@ -143,7 +143,7 @@ public class GameApresentation {
                     sectors[i][j] = this.templateSector[i][j];
                     //sectors[i][j + 18] = sector2[i][j];
             
-            sectorClear();
+            clearTemplateSector();
             sectorUpdate(null, P2, board);
             for (int i = 0; i < 7; i++)
                 for (int j = 0; j < 15; j++)
@@ -159,7 +159,7 @@ public class GameApresentation {
 
     }
 
-    private void sectorClear(){
+    private void clearTemplateSector(){
         this.templateSector[0][7] = '-';
         this.templateSector[3][14] = '|';
         this.templateSector[3][0] = '|';
