@@ -90,7 +90,7 @@ public class Game {
         boolean validAction = false;
 
         while (!validAction) {
-            System.out.println("Movimento: escolha uma porta (w=Cima, a=Esq, s=Baixo, d=Dir)");
+            this.gameOut.printMenuMove();
             char input = scanner.next().toLowerCase().charAt(0);
 
             pos = player.getPos();
@@ -134,7 +134,7 @@ public class Game {
 
         boolean validAction = false;
         while (!validAction) {
-            System.out.println("Acao: (1/2/3=atacar, p=procurar, 4/5=curar, 0=passar)");
+            this.gameOut.printMenuAction();
             char input = scanner.next().toLowerCase().charAt(0);
 
             switch (input) {

@@ -44,11 +44,18 @@ public class GameApresentation {
     }
 
     // Métodos de cabeçalho 
-    public void printMenu() {
-        System.out.print("----------------------------\n"
-                + "| 1 - Iniciar o jogo       |\n"
-                + "| 2 - Sair                 |\n"
-                + "----------------------------\n");
+    public void printMenuMove() {
+        System.out.print("----------------------------------\n");
+        System.out.print("-    'w'    |        'up'        -\n");
+        System.out.print("- 'a''s''d' | 'left''down''right'-\n");
+        System.out.print("----------------------------------\n");
+    }
+
+    public void printMenuAction() {
+        System.out.print("-----------------------------------\n");
+        System.out.print("- atk  (1,2,3) | procurar(p)      -\n");
+        System.out.print("- curar  (4,5) | passar(0)        -\n");
+        System.out.print("-----------------------------------\n");
     }
 
     public void printTitle(int round) {
