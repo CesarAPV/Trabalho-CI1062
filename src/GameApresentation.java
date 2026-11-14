@@ -10,7 +10,8 @@ public class GameApresentation {
     private char[][] templateBoard;
     private char[][] templateSector;
 
-    public GameApresentation() {
+    public GameApresentation(Position infecPosition) {
+        
         this.templateBoard = new char[][]{
             {' ', ' ', ' ', ' ', ' ', ' ', '1', ' ', ' ', ' ', '2', ' ', ' ', ' ', '3', ' ', ' ', ' ', '4', ' ', ' ', ' ', '5', ' ', ' '},
             {' ', ' ', ' ', ' ', '|', '-', '-', '-', '|', '-', '-', '-', '|', '-', '-', '-', '|', '-', '-', '-', '|', '-', '-', '-', '|'},

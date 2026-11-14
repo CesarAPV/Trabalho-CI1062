@@ -20,6 +20,7 @@ public class Board {
     };
 
     private Sector[][] sectors;
+    private Position infectPosition;
 
     // Construtor
     public Board() {
@@ -55,7 +56,11 @@ public class Board {
             infecCol = Die.interval(0, 4);
         } while (infecRow == 2 && infecCol == 2);
         sectors[infecRow][infecCol].infect();
-
+        
+        /* Pode fazer aqui, mesmo sendo um contrutor privado para gerar os setores ? */
+        Position infectPos = new Position(infecRow+1, infecCol+1);
+        this.infectPosition = infectPos;
+        
         return sectors;
     }
 

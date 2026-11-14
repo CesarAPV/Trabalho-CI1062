@@ -19,7 +19,6 @@ public class Game {
     private GameApresentation gameOut;
 
     public Game() {
-        this.gameOut = new GameApresentation();
         this.board = new Board();
         board.getSector(new Position(3, 3)).setVisited(true);
         this.numPlayers = 2;
@@ -29,6 +28,7 @@ public class Game {
             this.players[1] = new SupportPlayer();
 
         this.round = 0;
+        this.gameOut = new GameApresentation();
         this.scanner = new Scanner(System.in);
     }
 
