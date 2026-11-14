@@ -203,14 +203,6 @@ public class Game {
         }
     }
 
-    private void printEnemies(Sector sector) {
-        int i = 1;
-        for (Enemy enemy : sector.getEnemies()) {
-            System.out.println("Inimigo " + i + " "+ enemy);
-            i++;
-        }
-    }
-
     private boolean someoneFoundInfection() {
         for (Player player : players) {
             if(player.isAlive() && board.getInfectionPosition().equals(player.getPos())) {
