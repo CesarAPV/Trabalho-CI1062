@@ -37,10 +37,10 @@ public class Game {
     public int runRound() {
 
         for(int i = 0; i < numPlayers; i++) {
-            this.gameOut.printGame(this.board,this.players[0],this.players[1], round);
-
             Player player = players[i];
             if(!player.isAlive()) continue;
+            
+            this.gameOut.printGame(this.board,this.players[0],this.players[1], round);
 
             Sector sector = board.getSector(player.getPos());
 
