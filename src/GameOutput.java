@@ -44,7 +44,9 @@ public class GameOutput {
 
     }
 
-    // Métodos de cabeçalho 
+    /**
+     * Métodos Públicos
+     */ 
     public void printMenuMove(Player player) {
         System.out.print("----------------------------------\n");
         System.out.print("| Action P");
@@ -63,24 +65,6 @@ public class GameOutput {
         System.out.print("| atk  (1,2,3) | procurar (p)     |\n");
         System.out.print("| curar  (4,5) | passar   (0)     |\n");
         System.out.print("-----------------------------------\n");
-    }
-
-    public void printTitle(int round) {
-        System.out.print(   "----------------------------\n"+
-                            "|   Antivírus por um dia   |\n"+
-                            "|        Ciclo:"+(round + 1)+"/25        |\n"+
-                            "----------------------------\n");
-    }
-
-    public void printTitleSector(Board board, Player P1, Player P2){
-        Position posP1 = P1.getPos();
-        Position posP2 = P2.getPos();
-  
-        System.out.print("  Sector " + posP1.toString() + "  ");
-        if(!posP1.equals(posP2)){
-            System.out.print("     Sector " + posP2.toString() + "  ");
-        }
-        System.out.print("\n");
     }
 
     public void printGame(Board board, Player P1, Player P2, int round) {
@@ -254,5 +238,23 @@ public class GameOutput {
             if(P2.getDef()>9)
                 this.templateSector[5][12] = P2.toString().charAt(3);
         }
+    }
+
+    private void printTitle(int round) {
+        System.out.print(   "----------------------------\n"+
+                            "|   Antivírus por um dia   |\n"+
+                            "|        Ciclo:"+(round + 1)+"/25        |\n"+
+                            "----------------------------\n");
+    }
+
+    private void printTitleSector(Board board, Player P1, Player P2){
+        Position posP1 = P1.getPos();
+        Position posP2 = P2.getPos();
+  
+        System.out.print("  Sector " + posP1.toString() + "  ");
+        if(!posP1.equals(posP2)){
+            System.out.print("     Sector " + posP2.toString() + "  ");
+        }
+        System.out.print("\n");
     }
 }
